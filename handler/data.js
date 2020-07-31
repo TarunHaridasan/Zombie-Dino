@@ -1,6 +1,4 @@
-
-function run(fs) {
-    /*<--------------------Dynamic JSON Loader ------------------------->*/       
+function run(fs) {   
     let files=fs.readdirSync("./data/").filter(f => f.split(".").pop() == "json");
     let loadStr = '[JSON]';
     let data = {};
