@@ -1,4 +1,5 @@
-function run(fs) {
+function run(fs, resolve) {
+	let path = resolve("./system");
 	let files = fs.readdirSync("./system/").filter(f => f.split(".").pop() === "js");
 	let loadStr = '[System]';
 	let system ={}
@@ -6,7 +7,8 @@ function run(fs) {
 	else {
 	    console.log(`${loadStr.yellow.bold} ${files.length} system files found.`);
 	    files.forEach((f, i) => {
-	        let props = require(`../system/${f}`);
+	        let fp = `${path}\\${f}`
+            let props = require(fp);
 	        let loaded = `${f} loaded!`
 	        console.log(`${loadStr.yellow.bold} [${i+1}] ${loaded.grey}`);
 	        system[props.help.name] = props;
