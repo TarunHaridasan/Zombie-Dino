@@ -5,7 +5,6 @@ function run(fs, resolve) {
 	let commands = {};
 	if(files.length <= 0) console.log(`${loadStr.green.bold} No commands to load.\n`);
 	else {
-		console.log(files);
 	    console.log(`${loadStr.green.bold} ${files.length} commands detected.`);
 	    files.forEach((f, i) => {
 	    	let fp = `${path}\\${f}`;
