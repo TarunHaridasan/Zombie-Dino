@@ -9,10 +9,9 @@ const fs = require('fs');
 const resolve = require('path').resolve;  
 
 /*<--------------------Loading------------------------->*/
-let commands = require("./handler/commands.js")(fs, resolve);
-let system = require("./handler/system.js")(fs, resolve);
-let utils = require("./handler/utils.js")(fs, resolve);
-let data = require("./handler/data.js")(fs, resolve, utils["JSONTemplate"]);
+let commands = require("./handler/commands.js")();
+let system = require("./handler/system.js")();
+global.data = require("./handler/data.js")();
 
 /*<--------------------Initialize------------------------->*/
 client.on("ready", () => {
@@ -40,7 +39,7 @@ client.on("ready", () => {
 		});
 	});
 
-	//Close all files
+	//Write all files
 	server.write();
 	money.write();
 	console.log(`Logged in as ${client.user.tag}!`);
@@ -65,9 +64,8 @@ client.on('message', async (message) => {
 
     //Run command if it exists
     let cmd = commands[command.slice(prefix.length)];   
-    if (cmd) cmd.run(client, message, args, data, utils);
+    if (cmd) cmd.run(client, message, args);
 }); 
-
 
 
 

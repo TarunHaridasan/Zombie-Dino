@@ -1,4 +1,4 @@
-module.exports.run = async (client, message, args, data, utils) => {
+module.exports.run = async (client, message, args) => {
   //Parameters
 	let userID = message.author.id;
   let target = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
@@ -23,9 +23,9 @@ module.exports.run = async (client, message, args, data, utils) => {
   };
 
   //Instantiate Money Wrappers
-  let Money = utils["Money"];
-  let userMoney = new Money(userID, data["money.json"]);
-  let targetMoney = new Money(target.id, data["money.json"]);
+  let Money = require("../utilities/money.js");
+  let userMoney = new Money(userID);
+  let targetMoney = new Money(target.id);
 
   //Paying invalid amount
   if (!amount || !Number(amount) || Number(amount) > userMoney.get() || amount < 1) {

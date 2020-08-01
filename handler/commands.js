@@ -1,8 +1,13 @@
-function run(fs, resolve) {
+function run() {
+	//Requires
+	const fs = require('fs');
+	const resolve = require('path').resolve; 
+	//Read files from path
     let path = resolve("./commands");
 	let files = fs.readdirSync(path).filter(f => f.split(".").pop() === "js");
 	let loadStr = '[Commands]';
 	let commands = {};
+	//Print to console
 	if(files.length <= 0) console.log(`${loadStr.green.bold} No commands to load.\n`);
 	else {
 	    console.log(`${loadStr.green.bold} ${files.length} commands detected.`);

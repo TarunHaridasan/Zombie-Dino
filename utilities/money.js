@@ -1,11 +1,11 @@
 class Money {
 	//Constructors
-	constructor(userID, moneyJSON) {
+	constructor(userID) {
 		this.userID = userID;
-		this.data = moneyJSON.data;
-		this.fs = moneyJSON.fs;
-		this.fp = moneyJSON.fp;
-		this.write = moneyJSON.write;
+		this.data = data["money.json"].data;
+		this.fs = data["money.json"].fs;
+		this.fp = data["money.json"].fp;
+		this.write = data["money.json"].write;
 	}
 	//Get an attribute
 	get() {
@@ -29,5 +29,4 @@ class Money {
 		this.set(money);
 	}
 }
-module.exports.name = "Money";
-module.exports.run = Money;
+module.exports = Money;

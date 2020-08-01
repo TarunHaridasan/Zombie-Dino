@@ -8,5 +8,4 @@ class JSONTemplate {
 		this.fs.writeFileSync(this.fp, JSON.stringify(this.data, null, 2));
 	}
 }
-module.exports.run = JSONTemplate;
-module.exports.name = "JSONTemplate";
+module.exports = JSONTemplate;
