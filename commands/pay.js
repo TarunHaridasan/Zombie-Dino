@@ -48,7 +48,7 @@ module.exports.run = async (client, message, args, data, utils) => {
 };
 
 module.exports.help = {
-    name: "pay",
+    name: ["pay"],
     description: "Pay another user money",
     page: 2,
     title: "Economy Commands"

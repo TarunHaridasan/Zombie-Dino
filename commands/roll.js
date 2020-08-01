@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args) => {
 };
 
 module.exports.help = {
-    name: "roll",
+    name: ["roll"],
     description: "Roll a dice!",
     page: 1,
     title: "General Commands"

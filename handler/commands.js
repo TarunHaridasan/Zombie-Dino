@@ -11,7 +11,10 @@ function run(fs, resolve) {
 	        let props = require(fp);
 	        let loaded = `${f.toString()} loaded!`;
 	        console.log(`${loadStr.green.bold} [${i+1}] ${loaded.yellow}`);
-	        commands[props.help.name] = props;
+	        for (let i=0; i<props.help.name.length; i++) {
+	        	let name = props.help.name[i];
+	        	commands[name] = props;
+	        }	        
 	    });
 	    console.log(`${loadStr.green.bold} All commands have been loaded!\n`);  
 	}
