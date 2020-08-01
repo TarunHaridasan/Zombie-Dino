@@ -1,32 +1,25 @@
-class Money {
-	//Constructors
+const JSONTemplate = require("./jsonTemplate");
+
+class Money extends JSONTemplate {
 	constructor(userID) {
-		this.userID = userID;
-		this.data = data["money.json"].data;
-		this.fs = data["money.json"].fs;
-		this.fp = data["money.json"].fp;
-		this.write = data["money.json"].write;
+		super("money.json");
+		this.userID = userID;	
+		this.userData = this.data[this.userID];
 	}
-	//Get an attribute
-	get() {
-		return this.data[this.userID].money;
-	}
-	//Set an attribute
-	set(value) {
-		this.data[this.userID].money = Math.round(value * 100) / 100;
-		this.write();
-	}
-	//Add money
 	add(amount) {
-		let money = this.data[this.userID].money;
-		money += amount;
+		let money = this.userData.money + amount;
 		this.set(money);
 	}
-	//Subtract money
 	min(amount) {
-		let money = this.data[this.userID].money;
-		money -= amount;
+		let money = this.userData.money - amount;
 		this.set(money);
+	}
+	set(amount) {
+		this.userData.money = Math.round(amount * 100)/100;
+		this.write()
+	}
+	get() {
+		return this.userData.money;
 	}
 }
 module.exports = Money;
