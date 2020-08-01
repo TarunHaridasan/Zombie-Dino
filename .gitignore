@@ -1,4 +1,4 @@
 node_modules
 .floo
 .flooignore
-data
+data/auth.json
