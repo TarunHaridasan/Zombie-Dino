@@ -2,7 +2,7 @@ module.exports.run = async (client, message, args) => {
 	roll = Math.round(1 + Math.random() * 5);
     message.reply({embed: {
       color: 3447003,
-      description: "You rolled a: " + roll + "."
+      description: `You rolled a  \`${roll}\`.`
     }});
 };
 

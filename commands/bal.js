@@ -1,14 +1,15 @@
-module.exports.run = async (client, message, args, data, utils) => {
+module.exports.run = async (client, message, args) => {
+  let Money = require('../utilities/money.js')
 	let balanceTarget = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     if (!balanceTarget) {
-        let money = new utils["Money"] (message.author.id, data["money.json"]);
+        let money = new Money(message.author.id);
         message.channel.send({embed: {
           color: 3447003,
           description: `<@${message.author.id}>'s balance: ${money.get().toLocaleString()}💵`
         }});
     }
     else {
-      let money = new utils["Money"] (balanceTarget.id, data["money.json"]);
+      let money = new Money(balanceTarget.id);
         message.channel.send({embed: {
           color: 3447003,
           description: `<@${balanceTarget.id}>'s balance: ${money.get().toLocaleString()}💵`

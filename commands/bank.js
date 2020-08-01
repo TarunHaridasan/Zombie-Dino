@@ -1,6 +1,6 @@
-module.exports.run = async (client, message, args, data, utils) => {
-    let Money = utils["Money"];
-    let bank = new Money('bank', data['money.json']);
+module.exports.run = async (client, message, args) => {
+    let Money = require("../utilities/money.js");
+    let bank = new Money('bank');
     let vault = bank.get().toLocaleString();
 
     message.channel.send({embed: {

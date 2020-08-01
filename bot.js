@@ -4,15 +4,14 @@ const opus = require('opusscript');
 const colors = require('colors');
 const client = new Discord.Client();
 const util = require("util");
-let dispatachers = [];
-const fs = require('fs');
-const resolve = require('path').resolve;  
+
+let JSONTemplate = require("./utilities/jsonTemplate.js");
+const Money = require('./utilities/money.js');
 
 /*<--------------------Loading------------------------->*/
-let commands = require("./handler/commands.js")(fs, resolve);
-let system = require("./handler/system.js")(fs, resolve);
-let utils = require("./handler/utils.js")(fs, resolve);
-let data = require("./handler/data.js")(fs, resolve, utils["JSONTemplate"]);
+let commands = require("./handler/commands.js")();
+let system = require("./handler/system.js")();
+global.data = require("./handler/data.js")();
 
 /*<--------------------Initialize------------------------->*/
 client.on("ready", () => {
@@ -20,15 +19,15 @@ client.on("ready", () => {
 	console.log(`Logged in to [${guilds.size}] guilds!`);
 
 	//Get JSONs
-    let server = data["server.json"];
-    let money = data["money.json"];
+	let server = new JSONTemplate("server.json");
+	let money = new JSONTemplate("money.json");
 
     //For each guild
 	guilds.forEach(guild => {
 		let members = guild.members;
 		let serverID = guild.id;
 
-		//Initialize JSON data
+		//Initialize JSON data for server
 		if (!server.data[serverID]) server.data[serverID] = {prefix: "!", admin: [guild.ownerID]}; //Server data
 		if (!money.data["bank"]) money.data["bank"] = {money: Math.round(100000000+Math.random()*50000000)}; //Bank money
         if (!money.data["mafia"]) money.data["mafia"] = {money: Math.round(100000+Math.random()*50000)}; //Mafia money
@@ -36,11 +35,13 @@ client.on("ready", () => {
 		//For each member in the guild
 		members.forEach(member => {
 			let userID = member.user.id;
+
+			//Initialize JSON data for each member.
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
 		});
 	});
 
-	//Close all files
+	//Write all files
 	server.write();
 	money.write();
 	console.log(`Logged in as ${client.user.tag}!`);
@@ -65,9 +66,8 @@ client.on('message', async (message) => {
 
     //Run command if it exists
     let cmd = commands[command.slice(prefix.length)];   
-    if (cmd) cmd.run(client, message, args, data, utils);
+    if (cmd) cmd.run(client, message, args);
 }); 
-
 
 
 
