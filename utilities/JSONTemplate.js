@@ -1,12 +1,18 @@
 class JSONTemplate {
-	constructor(fs, fp, data) {
-		this.fs = fs; //fs object
-		this.fp = fp; //File path
-		this.data = data; //Actual json data
-	}
-	write() {
-		this.fs.writeFileSync(this.fp, JSON.stringify(this.data, null, 2));
-	}
+    constructor(name) {
+        this.name = name;
+        this.fp = data[name].fp;
+        this.data = data[name].data;
+        this.writeFileSync = require('fs').writeFileSync;
+    }
+    write() {
+        this.writeFileSync(this.fp, JSON.stringify(this.data, null, 2));
+    }
+    get(attribute) {
+        return this.data[attribute];
+    }
+    set(attribute, value) {
+        this.data[attribute] = value;
+    }
 }
-module.exports.run = JSONTemplate;
-module.exports.name = "JSONTemplate";
+module.exports = JSONTemplate;

@@ -1,8 +1,13 @@
-function run(fs, resolve) {
+function run() {
+	//Requires
+	const readdirSync = require('fs').readdirSync;
+	const resolve = require('path').resolve;  
+	//Read files from path
 	let path = resolve("./system");
-	let files = fs.readdirSync("./system/").filter(f => f.split(".").pop() === "js");
+	let files = readdirSync("./system/").filter(f => f.split(".").pop() === "js");
 	let loadStr = '[System]';
 	let system ={}
+	//Print to console
 	if(files.length <= 0) console.log(`${loadStr.yellow.bold} No system files to load.\n`);
 	else {
 	    console.log(`${loadStr.yellow.bold} ${files.length} system files found.`);
