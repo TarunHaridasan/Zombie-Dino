@@ -1,11 +1,11 @@
 function run() { 
     //Requires
-    const fs = require('fs');
+    const readdirSync = require('fs').readdirSync;
     const resolve = require('path').resolve;
     let JSONTemplate = require('../utilities/JSONTemplate.js');
     //Read files from path
     let path = resolve("./data");
-    let files=fs.readdirSync(path).filter(f => f.split(".").pop() == "json");
+    let files=readdirSync(path).filter(f => f.split(".").pop() == "json");
     let loadStr = '[JSON]';
     let data = {};
     //Print to console
@@ -18,7 +18,7 @@ function run() {
             let props = require(fp);
             let loaded = `${f.toString()} loaded!`;
             console.log(`${loadStr.red.bold} [${i+1}] ${loaded.red}`);
-            data[f]=new JSONTemplate(fs, fp, props); //Change this
+            data[f]={fp: fp, data: props};
         });
         console.log(`${loadStr.red.bold} All JSON files have been loaded!\n`); 
     }

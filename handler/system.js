@@ -1,10 +1,10 @@
 function run() {
 	//Requires
-	const fs = require('fs');
+	const readdirSync = require('fs').readdirSync;
 	const resolve = require('path').resolve;  
 	//Read files from path
 	let path = resolve("./system");
-	let files = fs.readdirSync("./system/").filter(f => f.split(".").pop() === "js");
+	let files = readdirSync("./system/").filter(f => f.split(".").pop() === "js");
 	let loadStr = '[System]';
 	let system ={}
 	//Print to console
