@@ -29,7 +29,7 @@ client.on("ready", () => {
 		let serverID = guild.id;
 
 		//Initialize JSON data
-		if (!server.data[serverID]) server.data[serverID] = {prefix: "!", admin: [guild.ownerID]}; //Server data
+		if (!server.data[serverID]) server.data[serverID] = {prefix: "z.", admin: [guild.ownerID]}; //Server data
 		if (!money.data["bank"]) money.data["bank"] = {money: Math.round(100000000+Math.random()*50000000)}; //Bank money
         if (!money.data["mafia"]) money.data["mafia"] = {money: Math.round(100000+Math.random()*50000)}; //Mafia money
 
@@ -57,16 +57,16 @@ client.on('message', async (message) => {
     let serverID = message.guild.id;
 
     //Parse message
-    let prefix = data["server.json"].data[serverID].prefix;
+    client.prefix = data["server.json"].data[serverID].prefix;
     let messageArray = message.content.split(" ");
     let command = messageArray[0];
     let args = messageArray.slice(1);
-    if (!command.startsWith(prefix)) return;
+    if (!command.startsWith(client.prefix)) return;
 
     //Run command if it exists
-    let cmd = commands[command.slice(prefix.length)];   
+    let cmd = commands[command.slice(client.prefix.length)];
     if (cmd) cmd.run(client, message, args, data, utils);
-}); 
+});
 
 
 
