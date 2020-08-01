@@ -17,7 +17,7 @@ module.exports.run = async (client, message, args, data, utils) => {
 };
 
 module.exports.help = {
-	name: "bal",
+  name: "bal",
   description: "Used in order to check the balance of a user or yourself.",
   page: 2,
   title: "Economy Commands"
