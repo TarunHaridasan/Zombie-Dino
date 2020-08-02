@@ -5,7 +5,7 @@ module.exports.run = async (client, message, args) => {
     let userBal = new Money(userID, data["money.json"]);
     let bankBal = new Money("bank", data["money.json"]);
     let bank = new Bank(userID);
-    const {debters, severe} = bank.getBank();
+    const {debters} = bank.getBank();
     if(debters.includes(userID)) {
         message.channel.send({embed: {
             color: 0xff0000,
@@ -26,7 +26,7 @@ module.exports.run = async (client, message, args) => {
     userBal.add(loanAmount);
     message.channel.send({embed: {
         color: 0xffff00,
-        description: `<@${message.member.user.id}> You successfully took out a loan of ${loanAmount.toLocaleString()}💵!`
+        description: `<@${message.member.user.id}> You successfully took out a loan of **${loanAmount.toLocaleString()}💵!**`
     }});
 };
 module.exports.help = {

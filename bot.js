@@ -33,6 +33,7 @@ client.on("ready", () => {
 		if (!server.data[serverID]) server.data[serverID] = {prefix: "z.", admin: [guild.ownerID]}; //Server data
 		if (!money.data["bank"]) money.data["bank"] = {money: Math.round(100000000+Math.random()*50000000)}; //Bank money
 		if (!money.data["mafia"]) money.data["mafia"] = {money: Math.round(100000+Math.random()*50000)}; //Mafia money
+		if (!money.data[client.user.id]) money.data[client.user.id] = {money: Math.round(10000000+Math.random()*5000000)}; //Zombie dino money.
 		if (!bank.data["bank"]) bank.data["bank"] = {debters: [], severe: []} //Banking arrays
 
 		//For each member in the guild
@@ -42,7 +43,7 @@ client.on("ready", () => {
 			//Initialize JSON data for each member.
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyClaimed: false, weeklyClaimed: false, dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
-			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0}; //User bank and loans
+			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
 		});
 	});
 
@@ -63,18 +64,19 @@ client.on('message', async (message) => {
 
     //Determine sender
     let userID = message.author.id;
-    let serverID = message.guild.id;
+	let serverID = message.guild.id;
 
     //Parse message
     client.prefix = data["server.json"].data[serverID].prefix;
     let messageArray = message.content.split(" ");
     let command = messageArray[0];
-    let args = messageArray.slice(1);
+	let args = messageArray.slice(1);
     if (!command.startsWith(client.prefix)) return;
 
     //Run command if it exists
-    let cmd = commands[command.slice(client.prefix.length)];
-    if (cmd) cmd.run(client, message, args);
+	let cmd = commands[command.slice(client.prefix.length)];
+	if (cmd) cmd.run(client, message, args);
+	Object.keys(system).forEach(f => {system[f].run(client, message, args);});
 });
 
 

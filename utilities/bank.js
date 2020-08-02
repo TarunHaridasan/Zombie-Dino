@@ -13,7 +13,8 @@ class Bank extends JSONTemplate {
         this.uData.loan =+ (Math.round(amount * 100))/100;
         this.uData.loanDate = Date.now();
         this.uData.intr = 3;
-        this.uData.severe = 0;
+        this.uData.severe = Date.now()+432000000;
+        this.uData.incr = Date.now();
         this.write();
         return true;
     }
@@ -31,20 +32,30 @@ class Bank extends JSONTemplate {
         this.uData.loanDate = 0;
         this.uData.intr = 0;
         this.uData.severe = 0;
+        this.uData.incr = 0;
         this.write();
         return true;
     }
     getBank() {
         let debters = this.data['bank'].debters;
-        let severe = this.data['bank'].severe;
-        return {debters, severe};
+        let severeArr = this.data['bank'].severe;
+        return {debters, severeArr};
     }
     getData() {
-        let loan = this.uData.loan;
-        let loanDate = this.uData.loanDate;
-        let intr = this.uData.intr;
-        let severe = this.uData.severe;
-        return {loan, loanDate, intr, severe};
+        let loan =+ this.uData.loan;
+        let loanDate =+ this.uData.loanDate;
+        let intr =+ this.uData.intr;
+        let severe =+ this.uData.severe;
+        let incr =+ this.uData.incr;
+        return {loan, loanDate, intr, severe, incr};
+    }
+    interest() {
+        let intr = (this.uData.intr/100)+1;
+        this.uData.loan *= intr;
+        this.uData.loan = Math.round(this.uData.loan);
+        this.uData.incr = Date.now();
+        this.write();
+        return true;
     }
 }
 module.exports = Bank;
