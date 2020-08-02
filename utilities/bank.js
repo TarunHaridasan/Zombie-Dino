@@ -16,12 +16,16 @@ class Bank extends JSONTemplate {
         this.uData.severe = 0;
         this.write();
         return true;
-	}
+    }
+    pay(amount) {
+        this.uData.loan -= +amount;
+        this.write();
+        return true;
+    }
 	unLoan() {
         let bank = this.data['bank'];
-        bank.debters.push(this.userID);
         if (bank.severe.includes(this.userID)) bank.severe.splice(bank.severe.indexOf(this.userID), 1);
-        this.uData.debters.splice(this.uData.debters.indexOf(this.userID), 1);
+        bank.debters.splice(bank.debters.indexOf(this.userID), 1);
         /**********************************************************************************************/
         this.uData.loan = 0;
         this.uData.loanDate = 0;
