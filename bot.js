@@ -21,6 +21,7 @@ client.on("ready", () => {
 	//Get JSONs
 	let server = new JSONTemplate("server.json");
 	let money = new JSONTemplate("money.json");
+	let rewards = new JSONTemplate("rewards.json");
 
     //For each guild
 	guilds.forEach(guild => {
@@ -38,12 +39,14 @@ client.on("ready", () => {
 
 			//Initialize JSON data for each member.
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
+			if (!rewards.data[userID]) rewards.data[userID] = {dailyClaimed: false, weeklyClaimed: false, dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 		});
 	});
 
 	//Write all files
 	server.write();
 	money.write();
+	rewards.write();
 	console.log(`Logged in as ${client.user.tag}!`);
 });
 client.login(data["auth.json"].data.token);
@@ -65,9 +68,9 @@ client.on('message', async (message) => {
     if (!command.startsWith(prefix)) return;
 
     //Run command if it exists
-    let cmd = commands[command.slice(prefix.length)];   
+    let cmd = commands[command.slice(prefix.length)];
     if (cmd) cmd.run(client, message, args);
-}); 
+});
 
 
 
