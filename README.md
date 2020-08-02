@@ -1,4 +1,4 @@
-![Node.js CI](https://github.com/TarunHaridasan/Zombie-Dino)
+![Node.js CI](https://github.com/TarunHaridasan/Zombie-Dino/workflows/Node.js%20CI/badge.svg?branch=master)
 # Zombie Dino Discord Bot
 This is the source code for a discord bot made by Tarun Haridasan and Jason Su. It is written using discord.js and Node.js. The code features dynamic data storage using JSON files including a compact handler for data so that it is easy to write and set data values to each discord user through their ID. Commands are handled via a dynamic handling system that looks for javascript files in the commands folder and stores them all in a map that is made as the bot started. On the message event, the bot takes a look through the map and if a prefix is detected with a command following it, the specified code will run.
 
