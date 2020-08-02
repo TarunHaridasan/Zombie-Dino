@@ -5,14 +5,13 @@ module.exports.run = async (client, message, args) => {
     let Rewards = require('../utilities/rewards.js');
     let Money = require('../utilities/money.js');
     let user = new Rewards(userID, data["rewards.json"]);
-    let userBal = new Money(userID, data['money.json'])
+    let userBal = new Money(userID, data['money.json']);
 
     let date = new Date();
     let canClaim = new Date(user.get('dailyMS'));
     let tmr = canClaim.setDate((canClaim.getDate()+1));
-
     //Checking if the user has already claimed their daily gift!
-    if(date.getTime() < user.get('dailyMS')) {
+    if(date.getTime() < canClaim.getTime()) {
         let msg = '';
         if(new Date(date).getDate() == new Date(user.get('dailyMS')).getDate()) msg = 'Come back later today';
         else msg = 'Come back tomorrow';
@@ -20,7 +19,6 @@ module.exports.run = async (client, message, args) => {
         let mins = canClaim.getMinutes().toLocaleString();
         let pre = (mins.length < 2 ? '0':'');
         mins = `${pre}${mins}`;
-        console.log(pre);
         message.channel.send({embed: {
             color: 0xff0000,
             description: `<@${message.member.user.id}> You cannot claim your gift yet. ${msg} at ${timeArr[canClaim.getHours()]}:${mins}${suff}.`
@@ -30,10 +28,11 @@ module.exports.run = async (client, message, args) => {
     //Checking if the user has missed a day
     if(date.getTime() >= tmr) user.reset('dailyStr');
     let newDate = date.setDate(date.getDate()+1);
+    console.log(newDate);
     let claimAmount = 1000+(750*+user.get('dailyStr'));
     userBal.add(claimAmount);
     user.set('dailyClaimed', true);
-    user.set('dailyMS', date.setDate(date.getDate()+1));
+    user.set('dailyMS', (date.getTime()+86400000));
     user.set('dailyStr', +user.get('dailyStr')+1);
     message.channel.send({embed: {
         color: 0x00ff00,
