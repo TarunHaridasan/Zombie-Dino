@@ -7,7 +7,7 @@ This is the source code for a discord bot made by Tarun Haridasan and Jason Su. 
 
 # How to Run the Code
 1. Get a discord bot token at this link: `https://discord.com/developers/applications`
-2. Create an auth.json file in the data directory and set the "auth" property to your token!
+2. Create an auth.json file in the data directory and set the "token" property to your token!
 3. Run start.cmd and your bot will come online with this code.
 
 # Copyright and License
