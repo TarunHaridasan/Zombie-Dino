@@ -23,6 +23,7 @@ client.on("ready", () => {
 	let money = new JSONTemplate("money.json");
 	let rewards = new JSONTemplate("rewards.json");
 	let bank = new JSONTemplate("bank.json");
+	let inventory = new JSONTemplate("inventory.json");
 
     //For each guild
 	guilds.forEach(guild => {
@@ -44,6 +45,7 @@ client.on("ready", () => {
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyClaimed: false, weeklyClaimed: false, dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
+			if (!inventory.data[userID]) inventory.data[userID] = {items: []}; //User inventories.
 		});
 	});
 
