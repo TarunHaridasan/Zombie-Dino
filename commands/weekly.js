@@ -10,7 +10,7 @@ module.exports.run = async (client, message, args) => {
     //Get times
     let date = new Date();
     let canClaim = new Date(reward.get('weeklyMS'));
-    let expire = canClaim.setDate((canClaim.getDate()+1));
+    let expire = canClaim.setDate((canClaim.getDate()+7));
 
    //User has already claimed their gift
     if(date.getTime() < canClaim.getTime()) {
@@ -23,7 +23,7 @@ module.exports.run = async (client, message, args) => {
         }});
         return;
     }
-    //User has missed a day
+    //User has missed the week
     if(date.getTime() >= expire) reward.reset('weeklyStr');
 
     //Add money to account
