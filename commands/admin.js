@@ -2,7 +2,7 @@ module.exports.run = async (client, message, args) => {
     //Extract variables
     let serverID = message.guild.id;
     let userID = message.author.id;
-    let adminTarget = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
+    let adminTarget = message.guild.member(message.mentions.users.first()) || message.guild.members.fetch(args[0]);
 
     //Instantiate object of ServerData class
     let Server = require("../utilities/server");

@@ -1,6 +1,6 @@
 module.exports.run = async (client, message, args) => {
   let Money = require('../utilities/money.js')
-	let balanceTarget = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+	let balanceTarget = message.guild.member(message.mentions.users.first() || message.guild.members.fetch(args[0]));
     if (!balanceTarget) {
         let money = new Money(message.author.id);
         message.channel.send({embed: {
