@@ -9,10 +9,16 @@ module.exports.run = async (client, message, args) => {
 
     //Get times
     let date = new Date();
+<<<<<<< HEAD
     let canClaim = new Date(reward.get('weeklyMS'));
     let expire = canClaim.setDate((canClaim.getDate()+7));
 
    //User has already claimed their gift
+=======
+    let canClaim = new Date(user.get('weeklyMS'));
+    let nxtWeek = canClaim.setDate((canClaim.getDate()+7));
+    //Checking if the user has already claimed their weekly gift!
+>>>>>>> e8ec0de8390d5fb5aa5b513cbe4632dc367e919e
     if(date.getTime() < canClaim.getTime()) {
         let timeStr = canClaim.toLocaleTimeString();
         let dateStr = canClaim.toDateString();
@@ -23,6 +29,7 @@ module.exports.run = async (client, message, args) => {
         }});
         return;
     }
+<<<<<<< HEAD
     //User has missed the week
     if(date.getTime() >= expire) reward.reset('weeklyStr');
 
@@ -35,6 +42,15 @@ module.exports.run = async (client, message, args) => {
     let newStreak = reward.incStreak('weeklyStr');
 
     //Display to the user
+=======
+    //Checking if the user has missed a day
+    if(date.getTime() >= nxtWeek) user.reset('weeklyStr');
+    let claimAmount = 10000+(7500*+user.get('weeklyStr'));
+    userBal.add(claimAmount);
+    user.set('weeklyClaimed', true);
+    user.set('weeklyMS', date.setDate(date.getDate()+6));
+    user.str('weeklyStr');
+>>>>>>> e8ec0de8390d5fb5aa5b513cbe4632dc367e919e
     message.channel.send({embed: {
         color: 0x00ff00,
         description: `<@${message.member.user.id}> You just claimed your weekly gift of ${claimAmount.toLocaleString()}! 🔥: ${newStreak}`
