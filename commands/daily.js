@@ -1,40 +1,47 @@
 module.exports.run = async (client, message, args) => {
     let userID = message.author.id;
-    let timeArr = ['12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
 
+    //Instantiate helper class
     let Rewards = require('../utilities/rewards.js');
     let Money = require('../utilities/money.js');
-    let user = new Rewards(userID, data["rewards.json"]);
-    let userBal = new Money(userID, data['money.json']);
+    let reward = new Rewards(userID);
+    let money = new Money(userID);
 
+    //Get todau, canClaim, and tomorrow's time
     let date = new Date();
-    let canClaim = new Date(user.get('dailyMS'));
-    let tmr = canClaim.setDate((canClaim.getDate()+1));
-    //Checking if the user has already claimed their daily gift!
+    let canClaim = new Date(reward.get('dailyMS'));
+    let expire = canClaim.setDate((canClaim.getDate()+1));
+
+    //User has already claimed their gift
     if(date.getTime() < canClaim.getTime()) {
+        //Find the duration till canClaim
         let msg = '';
-        if(new Date(date).getDate() == new Date(user.get('dailyMS')).getDate()) msg = 'Come back later today';
+        if(date.getDate() == canClaim.getDate()) msg = 'Come back later today';
         else msg = 'Come back tomorrow';
-        let suff = (canClaim.getHours() > 11 ? 'PM' : 'AM');
-        let mins = canClaim.getMinutes().toLocaleString();
-        let pre = (mins.length < 2 ? '0':'');
-        mins = `${pre}${mins}`;
+
+        //Display to user
         message.channel.send({embed: {
             color: 0xff0000,
-            description: `<@${message.member.user.id}> You cannot claim your gift yet. ${msg} at ${timeArr[canClaim.getHours()]}:${mins}${suff}.`
+            description: `<@${message.member.user.id}> You cannot claim your gift yet. \`${msg}\` at \`${canClaim.toLocaleTimeString()}\`.`
         }});
         return;
     }
-    //Checking if the user has missed a day
-    if(date.getTime() >= tmr) user.reset('dailyStr');
-    let claimAmount = 1000+(750*+user.get('dailyStr'));
-    userBal.add(claimAmount);
-    user.set('dailyClaimed', true);
-    user.set('dailyMS', (date.getTime()+86400000));
-    user.set('dailyStr', +user.get('dailyStr')+1);
+
+    //User has missed a day
+    if(date.getTime() >= expire) reward.reset('dailyStr');
+
+    //Add money
+    let claimAmount = 1000+(750*+reward.get('dailyStr'));
+    money.add(claimAmount);
+
+    //Increment streak and can claim
+    reward.incTime("dailyMS");
+    let newStreak = reward.incStreak("dailyStr");
+
+    //Display to the user
     message.channel.send({embed: {
         color: 0x00ff00,
-        description: `<@${message.member.user.id}> You just claimed your daily gift of ${claimAmount.toLocaleString()}! 🔥: ${user.get('dailyStr')}`
+        description: `<@${message.member.user.id}> You just claimed your daily gift of ${claimAmount.toLocaleString()}! 🔥: ${newStreak}`
     }});
 };
 
