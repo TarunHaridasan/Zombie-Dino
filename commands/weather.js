@@ -59,7 +59,7 @@ module.exports.run = async (client, message, args) => {
     //On Failiure
     try {
         if (data.cod == 401 || data.cod == 429) throw "Weather service is currently down. Please try again later.";
-        else if (data.cod == 404) throw "THat city does not exist!";
+        else if (data.cod == 404) throw "That city does not exist!";
         else if (data.cod = 400) throw "You did not enter a location";
     }
     catch(err) {
