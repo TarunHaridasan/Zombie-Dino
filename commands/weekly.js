@@ -9,7 +9,7 @@ module.exports.run = async (client, message, args) => {
 
     let date = new Date();
     let canClaim = new Date(user.get('weeklyMS'));
-    let tmr = canClaim.setDate((canClaim.getDate()+1));
+    let nxtWeek = canClaim.setDate((canClaim.getDate()+7));
     //Checking if the user has already claimed their weekly gift!
     if(date.getTime() < canClaim.getTime()) {
         let suff = (canClaim.getHours() > 11 ? 'PM' : 'AM');
@@ -25,7 +25,7 @@ module.exports.run = async (client, message, args) => {
         return;
     }
     //Checking if the user has missed a day
-    if(date.getTime() >= tmr) user.reset('weeklyStr');
+    if(date.getTime() >= nxtWeek) user.reset('weeklyStr');
     let claimAmount = 10000+(7500*+user.get('weeklyStr'));
     userBal.add(claimAmount);
     user.set('weeklyClaimed', true);
