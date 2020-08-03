@@ -2,25 +2,29 @@ module.exports.run = async (client, message, args) => {
     let userID = message.author.id;
     let loanTarget = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
     if(!loanTarget) loanTarget = userID;
+
+    //Instantiate helper class
     let Bank = require('../utilities/bank');
     let bank = new Bank(loanTarget);
+
     //Checking if the user has a loan or not.
     const {debters} = bank.getBank();
     const {loan, loanDate, intr} = bank.getData();
-    if(!debters.includes(userID)) {
-        //If the specified user does not have a loan, the command will exit.
+    if(bank.getData().loan==0) {
         message.channel.send({embed: {
             color: 0xff0000,
             description: `<@${userID}> User does not have an active loan.`
         }});
         return;
     };
+
     //Formatting the message
     let loanColor = 0xffff00;
     let time = Date.now();
     let diff = time - loanDate;
     diff = Math.floor(diff/86400000);
     let loanDateStr = (diff < 1) ? 'today.':`${diff} day(s) ago.`;
+
     //Sending the message with formatted variables.
     message.channel.send({embed: {
         color: loanColor,
