@@ -9,11 +9,11 @@ let JSONTemplate = require("./utilities/jsonTemplate.js");
 const Money = require('./utilities/money.js');
 
 /*<--------------------Loading------------------------->*/
-let commands = require("./handler/commands.js")();
-let system = require("./handler/system.js")();
+global.commands = require("./handler/commands.js")();
+global.system = require("./handler/system.js")();
 global.items = require("./handler/items.js")();
 global.data = require("./handler/data.js")();
-console.log(items);
+console.log(commands);
 
 /*<--------------------Initialize------------------------->*/
 client.on("ready", () => {
@@ -85,9 +85,11 @@ client.on('message', async (message) => {
 	let args = messageArray.slice(1);
     if (!command.startsWith(client.prefix)) return;
 
-    //Run command if it exists
+    //Run command /item if it exists
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
+
+	//Check
 
 	//Run system commands
 	Object.keys(system).forEach(f => {system[f].run(client, message, args);});
