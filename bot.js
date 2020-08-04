@@ -26,7 +26,7 @@ client.on("ready", () => {
 	let inventory = new JSONTemplate("inventory.json");
 
     //For each guild
-	guilds.forEach(guild => {
+	guilds.cache.forEach(guild => {
 		let members = guild.members;
 		let serverID = guild.id;
 
@@ -38,7 +38,7 @@ client.on("ready", () => {
 		if (!bank.data["bank"]) bank.data["bank"] = {debters: [], severe: []} //Banking arrays
 
 		//For each member in the guild
-		members.forEach(member => {
+		members.cache.forEach(member => {
 			let userID = member.user.id;
 
 			//Initialize JSON data for each member.
