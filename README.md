@@ -9,7 +9,7 @@ Example (In bot.js):
 //Requiring the JSON template class.
 let JSONTemplate = require("./utilities/jsonTemplate.js");
 //Creating a money object with the JSONTemplate class pointing to a money.json file.
-//This JSON file is located in ./data/money.js
+//This JSON file is located in ./data/money.json
 let money = new JSONTemplate("money.json");
 
 //To access the JSON data.
