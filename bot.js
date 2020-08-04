@@ -11,6 +11,7 @@ const Money = require('./utilities/money.js');
 /*<--------------------Loading------------------------->*/
 let commands = require("./handler/commands.js")();
 let system = require("./handler/system.js")();
+let items = require("./handler/items.js")();
 global.data = require("./handler/data.js")();
 
 /*<--------------------Initialize------------------------->*/
@@ -45,7 +46,14 @@ client.on("ready", () => {
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
-			if (!inventory.data[userID]) inventory.data[userID] = {items: []}; //User inventories.
+			if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
+			Object.keys(items).forEach(file => {
+				let data = inventory.data[userID];
+				if(!(file in inventory.data[userID])) {
+					data[file] = items[file].help.default;
+					inventory.data[userID] = data;
+				};
+			});
 		});
 	});
 
@@ -54,6 +62,7 @@ client.on("ready", () => {
 	money.write();
 	rewards.write();
 	bank.write();
+	inventory.write();
 	//Logged in and ready to go!
 	console.log(`Logged in as ${client.user.tag}!`);
 });
