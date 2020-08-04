@@ -1,8 +1,10 @@
-module.exports.run = async() => {
+function chugBeer() {
     console.log(`Succcccc`);
 }
 
-module.exports.help = {
-    name: 'beer',
-    default: 0
+module.exports.name = "beer";
+module.exports.cost = 10;
+module.exports.default = 0;
+module.exports = {
+    chugBeer: chugBeer
 }
