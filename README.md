@@ -22,7 +22,8 @@ module.exports.help = {
 ```
 In bot.js:
 ```javascript
-let commands = require("./handler/commands.js")(); //To assign a map to the commands variable of all the commands mapped by their name.
+let commands = require("./handler/commands.js")(); //To assign a map to the commands variable of all the 
+//commands mapped by their name.
 //In order to run a command, all you have to do is splice the length of the prefix of your bot and search for the first word
 //of the message in the map, then run the stored function.
 client.on('message', async (message) => {
