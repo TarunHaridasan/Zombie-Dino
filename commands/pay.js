@@ -1,7 +1,7 @@
 module.exports.run = async (client, message, args) => {
   //Parameters
 	let userID = message.author.id;
-  let target = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+  let target = message.guild.member(message.mentions.users.first() || message.guild.members.fetch(args[0]));
   let amount =+ args[1];
 
   //Invalid user

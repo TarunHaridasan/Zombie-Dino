@@ -1,26 +1,33 @@
 module.exports.run = async (client, message, args) => {
     let userID = message.author.id;
+
+    //Instantiate helper classes
     let Money = require('../utilities/money.js');
-    let Bank = require('../utilities/bank');
-    let userBal = new Money(userID, data["money.json"]);
-    let bankBal = new Money("bank", data["money.json"]);
+    let Bank = require('../utilities/bank.js');
+    let userBal = new Money(userID);
+    let bankBal = new Money("bank");
     let bank = new Bank(userID);
-    const {debters} = bank.getBank();
-    if(debters.includes(userID)) {
+
+    //User must not have an active loan
+    if(bank.getData().loan > 0) {
         message.channel.send({embed: {
             color: 0xff0000,
             description: `<@${message.member.user.id}> You already have an active loan!`
         }});
         return;
     };
+
+    //Load amount must be valid
     let loanAmount =+ args[0];
-    if(!loanAmount || loanAmount < 1 || loanAmount > 200000 || isNaN(+loanAmount)) {
+    if(!loanAmount || loanAmount < 1 || loanAmount > 200000 || isNaN(loanAmount)) {
         message.channel.send({embed: {
             color: 0xff0000,
             description: `<@${message.member.user.id}> Please enter a valid loan!`
         }});
         return;
     };
+
+    //Succesful
     bank.loan(loanAmount);
     bankBal.min(loanAmount);
     userBal.add(loanAmount);

@@ -1,40 +1,38 @@
-class Rewards {
+const JSONTemplate = require("./JSONTemplate.js");
+class Rewards extends JSONTemplate {
     //Constructor
-    constructor(userID, rewardsJSON) {
+    constructor(userID) {
+        super("rewards.json");
         this.userID = userID;
-        this.data = rewardsJSON.data;
-		this.writeFileSync = require('fs').writeFileSync;
-		this.fp = rewardsJSON.fp;
-    }
-    //Get a value given the key
-    get(attribute) {
-        return this.data[this.userID][attribute];
-    }
-    write() {
-        this.writeFileSync(this.fp, JSON.stringify(this.data, null, 2));
-    }
-    //Set a value to a key
-    set(attribute, value) {
-        this.data[this.userID][attribute] = value;
-        this.write();
+        this.userData = this.data[userID];
     }
     //Reset Streak
     reset(attribute) {
         this.set(attribute, 0);
+        return 0;
     }
-    //Increment Streak
-    str(streak) {
-        let curStreak = this.data[this.userID][streak];
-        this.set(streak, curStreak+1);
-        return curStreak+1;
+    //Increment Streak by 1
+    incStreak(streak) {
+        let curStreak = this.get(streak)+1;
+        this.set(streak, curStreak);
+        return curStreak;
     }
     //Increment time
-    time(type) {
-        let durationMs = (type=="dailyMS") ? 86400000 : 1209600000;
-        let curTime = this.data[this.userID][type];
-        curTime += durationMs;
+    incTime(type) {
+        let curTime = new Date();
+        let days = (type=="dailyMS") ? 1 : 7
+        curTime = curTime.setDate(curTime.getDate() + days);
         this.set(type, curTime);
         return curTime;
+    }
+    //Set a value to an attribute 
+    set(attribute, value) {
+        this.userData[attribute] = value;
+        this.write();
+    }
+    //Get the value of an attribute
+    get(attribute) {
+        return this.userData[attribute];
     }
 }
 

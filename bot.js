@@ -16,7 +16,7 @@ global.data = require("./handler/data.js")();
 /*<--------------------Initialize------------------------->*/
 client.on("ready", () => {
 	let guilds = client.guilds;
-	console.log(`Logged in to [${guilds.size}] guilds!`);
+	console.log(`Logged in to [${guilds.cache.size}] guilds!`);
 
 	//Get JSONs
 	let server = new JSONTemplate("server.json");
@@ -43,7 +43,7 @@ client.on("ready", () => {
 
 			//Initialize JSON data for each member.
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
-			if (!rewards.data[userID]) rewards.data[userID] = {dailyClaimed: false, weeklyClaimed: false, dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
+			if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
 			if (!inventory.data[userID]) inventory.data[userID] = {items: []}; //User inventories.
 		});

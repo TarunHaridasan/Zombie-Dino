@@ -8,11 +8,5 @@ class JSONTemplate {
     write() {
         this.writeFileSync(this.fp, JSON.stringify(this.data, null, 2));
     }
-    get(attribute) {
-        return this.data[attribute];
-    }
-    set(attribute, value) {
-        this.data[attribute] = value;
-    }
 }
 module.exports = JSONTemplate;
