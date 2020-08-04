@@ -11,8 +11,9 @@ const Money = require('./utilities/money.js');
 /*<--------------------Loading------------------------->*/
 let commands = require("./handler/commands.js")();
 let system = require("./handler/system.js")();
-let items = require("./handler/items.js")();
+global.items = require("./handler/items.js")();
 global.data = require("./handler/data.js")();
+console.log(items);
 
 /*<--------------------Initialize------------------------->*/
 client.on("ready", () => {
@@ -50,7 +51,7 @@ client.on("ready", () => {
 			Object.keys(items).forEach(file => {
 				let data = inventory.data[userID];
 				if(!(file in inventory.data[userID])) {
-					data[file] = items[file].help.default;
+					data[file] = items[file].default;
 					inventory.data[userID] = data;
 				};
 			});
@@ -87,6 +88,8 @@ client.on('message', async (message) => {
     //Run command if it exists
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
+
+	//Run system commands
 	Object.keys(system).forEach(f => {system[f].run(client, message, args);});
 });
 
