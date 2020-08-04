@@ -18,7 +18,7 @@ function run() {
 			let loaded = `${f.toString()} loaded!`;
             console.log(`${loadStr.magenta.bold} [${i+1}] ${loaded.yellow}`);
             //Making a map with the name of the item and the function that it does.
-            items[props.help.name] = props;
+            items[props.name] = props;
 		});
 		console.log(`${loadStr.magenta.bold} All items have been loaded!\n`);
 	}
