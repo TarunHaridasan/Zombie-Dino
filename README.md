@@ -4,7 +4,7 @@ This is the source code for the Zombie Dino discord bot made by Tarun Haridasan 
 
 # Utilities and Handlers
 ### Handlers
-The code incorporates handlers that make it easy to use JSON files and commands. The commands handler searches through the commands folder and dynamically adds all its scripts to a map that is sorted by the name of the command. That way, the function can be run by simply searching for the command within the map with its name as the key. The help command works similarily so that whenever a command is added to the commands directory, the bot can dynamically update its data when it is started. The help handler takes parameters from the help property of the js files and uses those to create a dynamic help page.
+The code incorporates handlers that make it easy to load JSON files and run commands. The commands handler searches through the commands folder and dynamically adds all the scripts within it to a map that is sorted by the name of the command. That way, a command can be run simply by searching the map with the command's name as the key. The help command works similarily so that whenever a command is added to the commands directory, the bot can dynamically update the help page when it is started. The help handler takes parameters from the help property of the js files and uses those to generate a dynamic help page.
 <br><br>
 Example:
 #### Your .js files should all look like this:
