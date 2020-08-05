@@ -1,8 +1,20 @@
-module.exports.run = async() => {
+function chugBeer() {
     console.log(`Succcccc`);
 }
 
-module.exports.help = {
-    name: 'beer',
-    default: 0
-}
+//Item properties
+module.exports.name = "beer";
+module.exports.cost = 10;
+module.exports.default = 0;
+module.exports.functions = [
+    {
+        run: chugBeer,
+        help: {
+            name: ["chugBeer"],
+            description: "Chug a nice cold beer!",
+            page: 0,
+            title: "TBD"
+        }        
+    }
+];
+  

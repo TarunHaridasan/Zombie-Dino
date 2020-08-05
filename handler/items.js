@@ -16,9 +16,15 @@ function run() {
 			let fp = `${path}\\${f}`;
 			let props = require(fp);
 			let loaded = `${f.toString()} loaded!`;
-            console.log(`${loadStr.magenta.bold} [${i+1}] ${loaded.yellow}`);
-            //Making a map with the name of the item and the function that it does.
-            items[props.help.name] = props;
+			console.log(`${loadStr.magenta.bold} [${i+1}] ${loaded.yellow}`);
+			
+            //Making a map with the name of the item and its properties (ie. cost)
+			items[props.name] = props;
+			
+			//Register commands associated with the item
+			props.functions.forEach(func => {
+				commands[func.help.name] = func;
+			})
 		});
 		console.log(`${loadStr.magenta.bold} All items have been loaded!\n`);
 	}
