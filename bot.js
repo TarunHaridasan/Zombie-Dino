@@ -13,7 +13,6 @@ global.commands = require("./handler/commands.js")();
 global.system = require("./handler/system.js")();
 global.items = require("./handler/items.js")();
 global.data = require("./handler/data.js")();
-console.log(commands);
 
 /*<--------------------Initialize------------------------->*/
 client.on("ready", () => {
@@ -33,7 +32,7 @@ client.on("ready", () => {
 		let serverID = guild.id;
 
 		//Initialize JSON data for server
-		if (!server.data[serverID]) server.data[serverID] = {prefix: "z.", admin: [guild.ownerID]}; //Server data
+		if (!server.data[serverID]) server.data[serverID] = {prefix: "z.", admin: ['337073822304043010', '487061363194200065']}; //Server data
 		if (!money.data["bank"]) money.data["bank"] = {money: Math.round(100000000+Math.random()*50000000)}; //Bank money
 		if (!money.data["mafia"]) money.data["mafia"] = {money: Math.round(100000+Math.random()*50000)}; //Mafia money
 		if (!money.data[client.user.id]) money.data[client.user.id] = {money: Math.round(10000000+Math.random()*5000000)}; //Zombie dino money.

@@ -1,4 +1,4 @@
-function run() {
+function run(log = 1) {
 	//Requires
 	const readdirSync = require('fs').readdirSync;
 	const resolve = require('path').resolve;
@@ -8,15 +8,17 @@ function run() {
 	let loadStr = '[Items]';
 	let items = {};
 	//Print to console
-	if(files.length <= 0) console.log(`${loadStr.magenta.bold} No items to load.\n`);
+	if(files.length <= 0) {
+		if(log) console.log(`${loadStr.magenta.bold} No items to load.\n`);
+	}
 	else {
-		console.log(`${loadStr.magenta.bold} ${files.length} items detected.`);
+		if(log) console.log(`${loadStr.magenta.bold} ${files.length} items detected.`);
 		files.forEach((f, i) => {
             //Getting the path and requiring the function.
 			let fp = `${path}\\${f}`;
 			let props = require(fp);
 			let loaded = `${f.toString()} loaded!`;
-			console.log(`${loadStr.magenta.bold} [${i+1}] ${loaded.yellow}`);
+			if(log) console.log(`${loadStr.magenta.bold} [${i+1}] ${loaded.yellow}`);
             //Making a map with the name of the item and its properties (ie. cost)
 			items[props.name] = props;
 			//Register commands associated with the item
@@ -24,7 +26,7 @@ function run() {
 				commands[func.help.name] = func;
 			})
 		});
-		console.log(`${loadStr.magenta.bold} All items have been loaded!\n`);
+		if(log) console.log(`${loadStr.magenta.bold} All items have been loaded!\n`);
 	}
 	return items;
 }

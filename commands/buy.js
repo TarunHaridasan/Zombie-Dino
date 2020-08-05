@@ -45,7 +45,7 @@ module.exports.run = async (client, message, args) => {
     //Make the message
     message.channel.send({embed: {
         color: 0x00FF00,
-        description: `You have bought \`${quantity}x\` \`${item}\` for \`${totalCost}💵\``
+        description: `You have bought \`${quantity}x\` \`${item}\` for **${totalCost}💵**`
     }});
     return;
 }
@@ -54,5 +54,5 @@ module.exports.help = {
     name: ["buy"],
     description: "Buy an items from the shop!",
     page: 2,
-    title: "Market Commands"
+    title: "Economy Commands"
 };

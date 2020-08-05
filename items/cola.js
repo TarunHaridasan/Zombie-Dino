@@ -3,16 +3,16 @@ async function chugBeer() {
 }
 
 //Item properties
-module.exports.name = "beer";
-module.exports.parsed = "Beer 🍺"
+module.exports.name = "cola";
+module.exports.parsed = "Cola <:coke:740688701428072488>"
 module.exports.cost = 10;
 module.exports.default = 0;
 module.exports.functions = [
     {
         run: chugBeer,
         help: {
-            name: ["beer"],
-            description: "Chug a nice cold beer!",
+            name: ["cola"],
+            description: "Drink a can of cola!",
             page: 1,
             title: "General Commands"
         }
