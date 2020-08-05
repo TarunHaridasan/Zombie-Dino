@@ -10,11 +10,10 @@ module.exports.functions = [
     {
         run: chugBeer,
         help: {
-            name: ["chugBeer"],
+            name: ["beer"],
             description: "Chug a nice cold beer!",
             page: 0,
             title: "TBD"
-        }        
+        }
     }
 ];
-  
