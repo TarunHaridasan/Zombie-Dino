@@ -2,10 +2,11 @@ async function drinkCola(_client, message, _args) {
     let userID = message.author.id;
     let Inventory = require('../utilities/inventory.js');
     let Stats = require('../utilities/itemStats.js');
-    let items = new Inventory(userID);
+    let inventory = new Inventory(userID);
     let stats = new Stats(userID);
-    //Checking for amount of beers
-    let cola = items.getQuantity('cola');
+
+    //Checking for amount of colas
+    let cola = inventory.getQuantity('cola');
     if(cola < 1) {
         message.channel.send({embed: {
             color: 0xFF0000,
@@ -13,6 +14,7 @@ async function drinkCola(_client, message, _args) {
         }});
         return;
     };
+
     //Checking for 100% sugar level.
     let sugar = stats.getQuantity('sugar');
     if(sugar >= 100) {
@@ -22,11 +24,11 @@ async function drinkCola(_client, message, _args) {
         }});
         return;
     };
+
     //Losing one cola and gaining sugar level.
-    items.minQuantity('cola', 1);
-    stats.addCola();
-    //Updating counter.
-    sugar = stats.getQuantity('sugar');
+    inventory.minQuantity('cola', 1);
+    sugar = stats.addCola();
+
     //Getting different emotes per sugar level.
     let emoji = '';
     if(sugar < 25) emoji = '🙂';
@@ -34,6 +36,7 @@ async function drinkCola(_client, message, _args) {
     else if(sugar < 75) emoji = '😳';
     else if(sugar < 100) emoji = '🥴';
     else emoji = '💀';
+
     //Sending the message.
     message.channel.send({embed: {
         color: 0xffff00,

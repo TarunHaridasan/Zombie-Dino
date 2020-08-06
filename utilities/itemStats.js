@@ -7,17 +7,19 @@ class ItemStats extends JSONTemplate {
         this.userID = userID;
         this.userData = this.data[userID];
     }
-    //Add a drink of beer.
+    //Drinking beer
     addBeer() {
         this.userData.drunk += 3;
         if (this.userData.drunk > 100) this.userData.drunk = 100;
         this.write();
+        return this.userData.drunk;
     }
     //Drinking cola.
     addCola() {
         this.userData.sugar += 3;
         if (this.userData.sugar > 100) this.userData.sugar = 100;
         this.write();
+        return this.userData.sugar;
     }
     //Remove a percentage of drunkness.
     sober() {

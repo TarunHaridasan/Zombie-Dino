@@ -1,11 +1,13 @@
 async function chugBeer(_client, message, _args) {
+    //Variables
     let userID = message.author.id;
     let Inventory = require('../utilities/inventory.js');
     let Stats = require('../utilities/itemStats.js');
-    let items = new Inventory(userID);
+    let inventory = new Inventory(userID);
     let stats = new Stats(userID);
+
     //Checking for amount of beers
-    let beer = items.getQuantity('beer');
+    let beer = inventory.getQuantity('beer');
     if(beer < 1) {
         message.channel.send({embed: {
             color: 0xFF0000,
@@ -13,6 +15,7 @@ async function chugBeer(_client, message, _args) {
         }});
         return;
     };
+
     //Checking for 100% drunkness.
     let drunk = stats.getQuantity('drunk');
     if(drunk >= 100) {
@@ -22,11 +25,11 @@ async function chugBeer(_client, message, _args) {
         }});
         return;
     };
+
     //Losing one beer and gaining drunkness.
-    items.minQuantity('beer', 1);
-    stats.addBeer();
-    //Updating counter.
-    drunk = stats.getQuantity('drunk');
+    inventory.minQuantity('beer', 1);
+    drunk = stats.addBeer();
+
     //Getting different emotes per drunkness.
     let emoji = '';
     if(drunk < 25) emoji = '🙂';
@@ -34,6 +37,7 @@ async function chugBeer(_client, message, _args) {
     else if(drunk < 75) emoji = '😳';
     else if(drunk < 100) emoji = '🥴';
     else emoji = '💀';
+
     //Sending the message.
     message.channel.send({embed: {
         color: 0xffff00,
