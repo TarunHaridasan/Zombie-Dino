@@ -25,6 +25,7 @@ client.on("ready", () => {
 	let rewards = new JSONTemplate("rewards.json");
 	let bank = new JSONTemplate("bank.json");
 	let inventory = new JSONTemplate("inventory.json");
+	let itemStats = new JSONTemplate("itemStats.json");
 
     //For each guild
 	guilds.cache.forEach(guild => {
@@ -36,7 +37,7 @@ client.on("ready", () => {
 		if (!money.data["bank"]) money.data["bank"] = {money: Math.round(100000000+Math.random()*50000000)}; //Bank money
 		if (!money.data["mafia"]) money.data["mafia"] = {money: Math.round(100000+Math.random()*50000)}; //Mafia money
 		if (!money.data[client.user.id]) money.data[client.user.id] = {money: Math.round(10000000+Math.random()*5000000)}; //Zombie dino money.
-		if (!bank.data["bank"]) bank.data["bank"] = {debters: [], severe: []} //Banking arrays
+		if (!bank.data["bank"]) bank.data["bank"] = {debters: [], severe: []} //Banking array
 
 		//For each member in the guild
 		members.cache.forEach(member => {
@@ -47,6 +48,7 @@ client.on("ready", () => {
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
 			if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
+			if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0};
 			Object.keys(items).forEach(file => {
 				let data = inventory.data[userID];
 				if(!(file in inventory.data[userID])) {
@@ -63,6 +65,7 @@ client.on("ready", () => {
 	rewards.write();
 	bank.write();
 	inventory.write();
+	itemStats.write();
 	//Logged in and ready to go!
 	console.log(`Logged in as ${client.user.tag}!`);
 });

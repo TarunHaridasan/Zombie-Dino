@@ -25,7 +25,7 @@ class Rewards extends JSONTemplate {
         this.set(type, curTime);
         return curTime;
     }
-    //Set a value to an attribute 
+    //Set a value to an attribute
     set(attribute, value) {
         this.userData[attribute] = value;
         this.write();

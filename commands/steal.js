@@ -54,7 +54,7 @@ module.exports.run = async (client, message, args) => {
     message.channel.send({embed: {
         color: 0x00FF00,
         description: `<@${userID}> You have stolen ${stealAmount.toLocaleString()}💵 from <@${stealTarget.id}>`
-    }}).then(message => message.delete(1000));
+    }}).then(message => message.delete());
 }
 module.exports.help = {
     name: ["steal"],
