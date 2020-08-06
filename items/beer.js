@@ -9,7 +9,7 @@ async function chugBeer(_client, message, _args) {
     if(beer < 1) {
         message.channel.send({embed: {
             color: 0xFF0000,
-            description: "You do not have any beer to drink."
+            description: "You do not have any 🍺 to drink."
         }});
         return;
     };
@@ -37,7 +37,7 @@ async function chugBeer(_client, message, _args) {
     //Sending the message.
     message.channel.send({embed: {
         color: 0xffff00,
-        description: `You drank a nice cold jug of beer! You are now **${drunk}%** drunk. ${emoji}`
+        description: `You drank a nice cold jug of 🍺! You are now **${drunk}%** drunk. ${emoji}`
     }});
 }
 
