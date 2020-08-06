@@ -48,7 +48,7 @@ client.on("ready", () => {
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
 			if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
-			if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar};
+			if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar: 0};
 			Object.keys(items).forEach(file => {
 				let data = inventory.data[userID];
 				if(!(file in inventory.data[userID])) {
