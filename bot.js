@@ -13,6 +13,7 @@ global.commands = require("./handler/commands.js")();
 global.system = require("./handler/system.js")();
 global.items = require("./handler/items.js")();
 global.data = require("./handler/data.js")();
+global.shop = require("./handler/shop.js")();
 
 /*<--------------------Initialize------------------------->*/
 client.on("ready", () => {

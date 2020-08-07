@@ -50,6 +50,7 @@ module.exports.name = "beer";
 module.exports.parsed = "Beer 🍺"
 module.exports.cost = 10;
 module.exports.default = 0;
+module.exports.page = 1;
 module.exports.functions = [
     {
         run: chugBeer,
