@@ -50,6 +50,7 @@ module.exports.parsed = "Cola <:coke:740688701428072488>"
 module.exports.cost = 10;
 module.exports.default = 0;
 module.exports.page = 1;
+module.exports.title = "Beverages"
 module.exports.functions = [
     {
         run: drinkCola,
