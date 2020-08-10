@@ -16,9 +16,10 @@ module.exports.run = async (client, message, args) => {
     let member = message.guild.members.cache.get(user.userID);
     let username = [member.user.username,member.user.discriminator];
     let avatar = member.user.avatarURL();
+    let prestige = user.userData.prestige > 0 ? user.romanize(user.userData.prestige):'';
     message.channel.send({embed: {
         color: 0xff00ff,
-        title: `${username[0]}'s Level | Level ${user.get()}`,
+        title: `[${prestige}] ${username[0]}'s Level [Level ${user.get()}]`,
         fields: [
             {
                 name: "Progress",
