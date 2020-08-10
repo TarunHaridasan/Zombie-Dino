@@ -44,7 +44,7 @@ module.exports.run = async (client, message, args) => {
 }
 module.exports.help = {
     name: ["admin"],
-    description: "This command is only used by the owner of the server to admin a member for debugging the bot.",
+    description: "This command is only used by the owner of the bot to admin a member for debugging the bot.",
     page: 7,
     title: "Debugging Commands"
 };
