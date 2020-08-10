@@ -4,7 +4,7 @@ class Level extends JSONTemplate {
 	constructor(userID) {
 		super("levels.json");
 		this.userID = userID;
-		this.userData = this.data[this.userID];
+        this.userData = this.data[this.userID];
 	}
 	get() {
 		return this.userData.level;
