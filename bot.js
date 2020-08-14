@@ -23,6 +23,7 @@ client.on("ready", () => {
 	let money = new JSONTemplate("money.json");
 	let rewards = new JSONTemplate("rewards.json");
 	let bank = new JSONTemplate("bank.json");
+	let minigames = new JSONTemplate("minigames.json");
 
     //For each guild
 	guilds.cache.forEach(guild => {
@@ -35,7 +36,7 @@ client.on("ready", () => {
 		if (!money.data["mafia"]) money.data["mafia"] = {money: Math.round(100000+Math.random()*50000)}; //Mafia money
 		if (!money.data[client.user.id]) money.data[client.user.id] = {money: Math.round(10000000+Math.random()*5000000)}; //Zombie dino money.
 		if (!bank.data["bank"]) bank.data["bank"] = {debters: [], severe: []} //Banking arrays
-
+	
 		//For each member in the guild
 		members.cache.forEach(member => {
 			let userID = member.user.id;
@@ -44,6 +45,7 @@ client.on("ready", () => {
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
+			if (!minigames.data[userID]) minigames.data[userID] = {crash: {}}
 		});
 	});
 
@@ -52,6 +54,7 @@ client.on("ready", () => {
 	money.write();
 	rewards.write();
 	bank.write();
+	minigames.write();
 	//Logged in and ready to go!
 	console.log(`Logged in as ${client.user.tag}!`);
 });
