@@ -58,12 +58,11 @@ module.exports.run = async (client, message, args) => {
 
         //Next crash interval is successful
         if (win) {
-            console.log(`Success at ${multiplier}x. Balance is $${Math.round(multiplier*+args[0])}`);  
             //Edit the old message
     		let edit = new Discord.MessageEmbed({ 
                 color: 0x00ff00,
                 title: `**Crash**`,
-                description: `Type .stopCrash to redeem money! Current multiplier is **${multiplier}x**. Pot: **${Math.round(multiplier*+args[0])}**💵`
+                description: `Type .stopCrash to redeem money! Current multiplier is **${multiplier}x**. Pot: **${Math.round(multiplier*bet)}**💵`
             });  
             await msg.edit(edit);    
         }
