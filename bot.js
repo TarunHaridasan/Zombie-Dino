@@ -48,7 +48,7 @@ client.on("ready", () => {
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
 			if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
-			if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar: 0};
+			if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar: 0, sober: 0, soberSugar: 0, event: 0};
 			Object.keys(items).forEach(file => {
 				let data = inventory.data[userID];
 				if(!(file in inventory.data[userID])) {
@@ -79,22 +79,18 @@ client.on('message', async (message) => {
     //Determine sender
     let userID = message.author.id;
 	let serverID = message.guild.id;
-
     //Parse message
     client.prefix = data["server.json"].data[serverID].prefix;
     let messageArray = message.content.split(" ");
     let command = messageArray[0];
 	let args = messageArray.slice(1);
+	//Run system commands
+	Object.keys(system).forEach(f => {system[f].run(client, message, args);});
+	//Check for prefix.
     if (!command.startsWith(client.prefix)) return;
-
     //Run command /item if it exists
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
-
-	//Check
-
-	//Run system commands
-	Object.keys(system).forEach(f => {system[f].run(client, message, args);});
 });
 
 
