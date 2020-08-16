@@ -71,12 +71,13 @@ client.on('message', async (message) => {
     let messageArray = message.content.split(" ");
     let command = messageArray[0];
 	let args = messageArray.slice(1);
+	//Running system commands.
+	Object.keys(system).forEach(f => {system[f].run(client, message, args);});
+	//Checking for prefix in message.
     if (!command.startsWith(client.prefix)) return;
-
     //Run command if it exists
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
-	Object.keys(system).forEach(f => {system[f].run(client, message, args);});
 });
 
 
