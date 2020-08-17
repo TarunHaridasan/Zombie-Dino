@@ -9,6 +9,7 @@ class ItemStats extends JSONTemplate {
     }
     //Drinking beer
     addBeer() {
+        if (this.userData.drunk == 0 && this.userData.sugar == 0) this.userData.event = Date.now()+300000;
         this.userData.drunk += 3;
         if (this.userData.drunk > 100) this.userData.drunk = 100;
         if (this.userData.sober < 1) this.userData.sober = Date.now();
@@ -17,6 +18,7 @@ class ItemStats extends JSONTemplate {
     }
     //Drinking cola.
     addCola() {
+        if (this.userData.drunk == 0 && this.userData.sugar == 0) this.userData.event = Date.now()+300000;
         this.userData.sugar += 3;
         if (this.userData.sugar > 100) this.userData.sugar = 100;
         if (this.userData.soberSugar < 1) this.userData.soberSugar = Date.now();
