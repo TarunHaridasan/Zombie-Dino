@@ -30,7 +30,7 @@ module.exports.run = async (client, message, args) => {
     if (stealTarget.id == userID) {
         message.channel.send({embed: {
             color: 0xff0000,
-            description: `<@${userID}> You cannot steal from yourself.`            
+            description: `<@${userID}> You cannot steal from yourself.`
         }});
         return;
     }
@@ -39,22 +39,23 @@ module.exports.run = async (client, message, args) => {
     let stealAmount = Number(args[1]);
     let Money = require("../utilities/money.js");
     let userMoney = new Money(userID);
-    let targetMoney = new Money(stealTarget.id);    
+    let targetMoney = new Money(stealTarget.id);
     if (!stealAmount || !Number(stealAmount) || Number(stealAmount) > targetMoney.get() || stealAmount < 1) {
         message.channel.send({embed: {
             color: 0xff0000,
-            description: `<@${userID}> Please choose a valid amount.`    
+            description: `<@${userID}> Please choose a valid amount.`
         }});
         return;
     };
 
-    //Process transatction
+    //Process transaction
     userMoney.add(stealAmount);
     targetMoney.min(stealAmount);
     message.channel.send({embed: {
         color: 0x00FF00,
         description: `<@${userID}> You have stolen ${stealAmount.toLocaleString()}💵 from <@${stealTarget.id}>`
     }}).then(message => message.delete(1000));
+    message.delete();
 }
 module.exports.help = {
     name: ["steal"],
