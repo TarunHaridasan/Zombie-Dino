@@ -6,7 +6,7 @@ module.exports.run = async (client, message, args) => {
     let userStats = new ItemStats(userID);
     let ms = Date.now();
     //Checking for if it is time for an event to occur.
-    if(ms < userStats.getQuantity('event')) return;
+    if(ms < userStats.getQuantity('event') && (userStats.getQuantity('drunk') == 0 && userStats.getQuantity('sugar') == 0)) return;
     let chance = Math.round((userStats.getQuantity('drunk')*0.75)+(userStats.getQuantity('sugar')*0.25));
     let ran = Math.round(1+Math.random()*99);
     let amount = Math.round((chance/100) * userBal.get());
