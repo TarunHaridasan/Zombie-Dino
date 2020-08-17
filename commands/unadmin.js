@@ -39,7 +39,7 @@ module.exports.run = async (client, message, args) => {
     if (adminTarget.id == userID) {
         message.channel.send({embed: {
             color: 0xff0000,
-            description: `<@${userID}> You cannot unadmin yourself.`            
+            description: `<@${userID}> You cannot unadmin yourself.`
         }});
         return;
     }
@@ -54,7 +54,7 @@ module.exports.run = async (client, message, args) => {
 
 module.exports.help = {
     name: ["unadmin"],
-    description: "This command is only used by the owner of the server to unadmin a member for debugging the bot.",
+    description: "This command is only used by the owner of the bot to unadmin a member for debugging the bot.",
     page: 7,
     title: "Debugging Commands"
 };
