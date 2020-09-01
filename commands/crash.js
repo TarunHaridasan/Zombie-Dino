@@ -26,7 +26,7 @@ module.exports.run = async (client, message, args) => {
     
     //Game Data
     let increments = [1.1, 1.2, 1.3, 1.4, 1.5, 2, 3, 4, 5, 10, 15, 20, 25, 35, 45, 55, 65, 75, 85, 95]; //20
-	let successRates = [80, 79, 78, 77, 76, 75, 73, 70, 67, 63, 60, 57, 54, 50, 45, 40, 35, 20, 10, 0.1]; //20
+	let successRates = [84, 83, 82, 81, 80, 78, 76, 74, 72, 70, 66, 60, 55, 50, 45, 40, 35, 20, 10, 0.1]; //20
     let iterator = 0;
 
     //Start the game
@@ -89,5 +89,5 @@ module.exports.help = {
     name: ["crash"],
     description: "Play a game of crash",
     page: 2,
-    title: "Debugging Commands"
+    title: "Gambling Commands"
 };
