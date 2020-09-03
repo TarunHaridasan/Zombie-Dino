@@ -34,7 +34,7 @@ module.exports.run = async (client, message, args) => {
     let msg = await message.channel.send({embed: {
         color: 0x000000,
         title: `Black Jack | ${message.author.username}`,
-        description: `Type **${prefix}hit** to draw a card and **${prefix}stay** to stop drawing cards.`,
+        description: `Type \`${prefix}hit\` to draw a card and \`${prefix}stay\` to stop drawing cards.`,
         fields: [
             {
                 name: `Dealer's Hand:`,
