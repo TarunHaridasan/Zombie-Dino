@@ -24,23 +24,21 @@ module.exports.run = async (client, message, args) => {
     let Money = require("../utilities/money.js");
     let money = new Money(userID);    
 
-    //Choice must be valid
+    //Args must be valid - Comit later
     let choice = args[0];
-    if (!choice || (choice!="heads" && choice!="tails")) {
-        message.channel.send({embed: {
-            color: 0xFF0000,
-            description: "Please choose heads or tails in the command."
-        }});
-        return;
-    }
-
-    //Bet must be valid
     let bet = +args[1];
-    let userBalance = money.get();
-    if (!bet || !Number(bet) || bet<1 || bet>userBalance) {
+    try {
+        if (!choice) throw "You must enter choice! (ex. heads or tails)"
+        if (choice!="heads" && choice!="tails") throw "You must enter a valid choice! (ex. heads or tails)"
+        if (!bet) throw "You must enter a valid bet!"
+        if (bet<10) throw "You must enter a bet greater than 10💵."
+        if (bet>money.get()) throw "You do not have that much money."  
+
+    }
+    catch(err) {
         message.channel.send({embed: {
             color: 0xFF0000,
-            description: "Please input a valid bet."
+            description: err
         }});
         return;
     }
