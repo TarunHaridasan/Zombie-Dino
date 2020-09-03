@@ -46,7 +46,7 @@ module.exports.run = async (client, message, args) => {
             }
         ],
         image: {
-            url: 'https://imgscri.be/images/2020/05/24/maxresdefault-17.jpg',
+            url: 'https://i.imgur.com/h7HteHl.png',
         },
         footer: {
             text: `Pot: ${bet.toLocaleString()}💵`
