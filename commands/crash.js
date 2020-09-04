@@ -1,12 +1,17 @@
-function successRate(multiplier) {
-    let a = 500;
-    let h = 20;
-    let c = 110;
+//Function thats gets the success rate from the multiplier
+function getSuccessRate(multiplier) {
+    let a = 500; //Decrease for more abrubt change
+    let h = 20; //Increase to get higher multiplier
+    let c = 110; //Inrease for higher probability
     let x = multiplier;
     return (a/(x-h))+c;
 }
-//Take off- 803 x 732 - https://i.imgur.com/5TSwqRj.png
-//Crash - https://i.imgur.com/xdxfkpD.png
+//Function thats gets the multiplier for a specific round
+function getMultiplier(round) {
+    let multipliers = [1.1, 1.2, 1.3, 1.4, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; //19
+    return multipliers[round];
+}
+
 module.exports.run = async (client, message, args) => {
     //Variables
     const Discord = require('discord.js');
@@ -16,6 +21,7 @@ module.exports.run = async (client, message, args) => {
     let Minigames = require("../utilities/minigames.js");
     let crash = new Minigames(userID, "crash");
     let prefix = client.prefix;
+    let counter = 0;
 
     //Bet must be valid and must not be in a game
     let bet = +args[0];
@@ -31,12 +37,7 @@ module.exports.run = async (client, message, args) => {
 	        description: err
 	    }});
 		return false; 
-    }
-    
-    //Game Data
-    let increments = [1.1, 1.2, 1.3, 1.4, 1.5, 2, 3, 4, 5, 10, 15, 20, 25, 35, 45, 55, 65, 75, 85, 95]; //20
-	let successRates = [84, 83, 82, 81, 80, 78, 76, 74, 72, 70, 66, 60, 55, 50, 45, 40, 35, 20, 10, 0.1]; //20
-    let iterator = 0;
+    }   
 
     //Start the game
     let msg = await message.channel.send({embed: {
@@ -76,12 +77,13 @@ module.exports.run = async (client, message, args) => {
             return false;
         }
 
-        //Process variables for this crash interval
-        let multiplier = increments[iterator];
+        //Get outcome of this crash interval
+        let multiplier = getMultiplier(counter);
+        let successRate = getSuccessRate(multiplier);
+        let randomNumber = Math.random()*100;
+        let win = (randomNumber<=successRate) ? true: false
         crash.set("multiplier", multiplier);
-        let percentage = successRates[iterator];
-        let win = (Math.random()*100<percentage) ? true: false
-        iterator++;
+        counter++;
 
         //Next crash interval is successful
         if (win) {
