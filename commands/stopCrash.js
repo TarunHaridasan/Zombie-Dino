@@ -21,8 +21,26 @@ module.exports.run = async (client, message, args) => {
     //Display earnings to user
     let edit = new Discord.MessageEmbed({
         color: 0x00FF00,
-        title: `**Crash**`,
-        description: `You have cashed out on **${multiplier}x**. You made **${earning}💵**`
+        title: `Crash | ${message.author.username} - CASHED OUT`,
+        description: `You have succesfully cashed out!`,
+        fields: [
+            {
+                name: `Current Multiplier:`,
+                value: `\`${multiplier}x\``,
+                inline: true,
+            },
+            {
+                name: "Earnings:",
+                value: `\`${earning.toFixed(2)}\`💵`,
+                inline: true,
+            }
+        ],
+        image: {
+            url: 'https://i.imgur.com/wMUbB2I.png', 
+        },
+        footer: {
+            text: `Bet: ${bet.toLocaleString()}💵`
+        }
     });
     let msg = await message.channel.messages.fetch(msgID);
     msg.edit(edit);

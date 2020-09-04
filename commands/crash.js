@@ -1,3 +1,12 @@
+function successRate(multiplier) {
+    let a = 500;
+    let h = 20;
+    let c = 110;
+    let x = multiplier;
+    return (a/(x-h))+c;
+}
+//Take off- 803 x 732 - https://i.imgur.com/5TSwqRj.png
+//Crash - https://i.imgur.com/xdxfkpD.png
 module.exports.run = async (client, message, args) => {
     //Variables
     const Discord = require('discord.js');
@@ -6,14 +15,14 @@ module.exports.run = async (client, message, args) => {
     let money = new Money(userID);
     let Minigames = require("../utilities/minigames.js");
     let crash = new Minigames(userID, "crash");
+    let prefix = client.prefix;
 
     //Bet must be valid and must not be in a game
     let bet = +args[0];
     try {
         if (!bet) throw "You must enter a valid bet!"
-        if (isNaN(bet)) throw "Enter a valid bet!"
         if (bet<10) throw "You must enter a bet greater than 10💵."
-        if (bet > money.get()) throw "You do not have that much money."
+        if (bet>money.get()) throw "You do not have that much money."
         if (crash.active()) throw "Please finish the already active game."
     }
     catch(err) {
@@ -31,9 +40,27 @@ module.exports.run = async (client, message, args) => {
 
     //Start the game
     let msg = await message.channel.send({embed: {
-        color: 0x00ff00,
-        title: `**Crash**`,
-        description: `Type .stopCrash to stop and redeem money! Current multiplier is **1x**.`
+        color: 0x000000,
+        title: `Crash | ${message.author.username}`,
+        description: `Type \`${prefix}stopCrash\` to stop and cash out!`,
+        fields: [
+            {
+                name: `Current Multiplier:`,
+                value: `\`1x\``,
+                inline: true,
+            },
+            {
+                name: "Earnings:",
+                value: `\`0💵\``,
+                inline: true
+            }
+        ],
+        image: {
+            url: 'https://i.imgur.com/5TSwqRj.png', 
+        },
+        footer: {
+            text: `Bet: ${bet.toLocaleString()}💵`
+        }
     }});
     crash.start();
     crash.set("multiplier", 1);
@@ -58,12 +85,29 @@ module.exports.run = async (client, message, args) => {
 
         //Next crash interval is successful
         if (win) {
-            //Edit the old message
-    		let edit = new Discord.MessageEmbed({ 
-                color: 0x00ff00,
-                title: `**Crash**`,
-                description: `Type .stopCrash to redeem money! Current multiplier is **${multiplier}x**. Pot: **${Math.round(multiplier*bet)}**💵`
-            });  
+            let edit = new Discord.MessageEmbed({
+                color: 0x000000,
+                title: `Crash | ${message.author.username}`,
+                description: `Type \`${prefix}stopCrash\` to stop and cash out!`,
+                fields: [
+                    {
+                        name: `Current Multiplier:`,
+                        value: `\`${multiplier}x\``,
+                        inline: true,
+                    },
+                    {
+                        name: "Earnings:",
+                        value: `\`${(multiplier * bet).toFixed(2)}💵\``,
+                        inline: true,
+                    }
+                ],
+                image: {
+                    url: 'https://i.imgur.com/5TSwqRj.png', 
+                },
+                footer: {
+                    text: `Bet: ${bet.toLocaleString()}💵`
+                }
+            });
             await msg.edit(edit);    
         }
 
@@ -75,14 +119,33 @@ module.exports.run = async (client, message, args) => {
 
             //Edit the old message
             let edit = new Discord.MessageEmbed({ 
-                color: 0xff0000,
-                title: `**Crash**`,
-                description: `Crashed at **${multiplier}x**. Better luck next time!`
+                color: 0xFF0000,
+                title: `Crash | ${message.author.username} - CRASHED`,
+                description: `You crashed! Better luck next time.`,
+                fields: [
+                    {
+                        name: `Current Multiplier:`,
+                        value: `\`${multiplier}\`x`,
+                        inline: true,
+                    },
+                    {
+                        name: "Earnings:",
+                        value: `\`${(multiplier * bet).toFixed(2)}💵\` -> \`0💵\``,
+                        inline: true,
+                    }
+                ],
+                image: {
+                    url: "https://i.imgur.com/xdxfkpD.png", 
+                },
+                footer: {
+                    text: `Bet: ${bet.toLocaleString()}💵`
+                }
+
             });      				
             await msg.edit(edit);   
             return false;
         }
-    }, 2000);
+    }, 2500);
 }
 
 module.exports.help = {
