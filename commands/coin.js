@@ -31,7 +31,7 @@ module.exports.run = async (client, message, args) => {
         if (!choice) throw "You must enter choice! (ex. heads or tails)"
         if (choice!="heads" && choice!="tails") throw "You must enter a valid choice! (ex. heads or tails)"
         if (!bet) throw "You must enter a valid bet!"
-        if (bet<10) throw "You must enter a bet greater than 10💵."
+        if (bet<=10) throw "You must enter a bet greater than 10💵."
         if (bet>money.get()) throw "You do not have that much money."  
 
     }

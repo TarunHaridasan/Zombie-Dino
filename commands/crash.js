@@ -27,7 +27,7 @@ module.exports.run = async (client, message, args) => {
     let bet = +args[0];
     try {
         if (!bet) throw "You must enter a valid bet!"
-        if (bet<10) throw "You must enter a bet greater than 10💵."
+        if (bet<=10) throw "You must enter a bet greater than 10💵."
         if (bet>money.get()) throw "You do not have that much money."
         if (crash.active()) throw "Please finish the already active game."
     }
