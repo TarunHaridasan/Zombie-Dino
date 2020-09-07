@@ -26,8 +26,8 @@ module.exports.run = async (client, message, args) => {
 
     //Dealer busts
     if (dealerSum>21) {
-        msg = await message.channel.send({embed: {
-            color: 0xff0000,
+        await message.channel.send({embed: {
+            color: 0x00FF00,
             title: `Black Jack | ${message.author.username} - DEALER BUST • YOU WON`,
 	        description: `The dealer busted, so you won!`,
 	        fields: [
@@ -51,7 +51,7 @@ module.exports.run = async (client, message, args) => {
     }
     //Dealer wins
     else if (dealerSum > userSum) {
-        msg = await message.channel.send({embed: {
+        await message.channel.send({embed: {
             color: 0xff0000,
             title: `Black Jack | ${message.author.username} - YOU LOST`,
 	        description: `You lost! Try again next time. You lost your original bet.`,
@@ -75,7 +75,7 @@ module.exports.run = async (client, message, args) => {
     }
     //User wins
     else if (userSum > dealerSum) {
-        msg = await message.channel.send({embed: {
+        await message.channel.send({embed: {
             color: 0x00ff00,
             title: `Black Jack | ${message.author.username} - YOU WON`,
 	        description: `You won! You won double your original bet!`,
@@ -100,7 +100,7 @@ module.exports.run = async (client, message, args) => {
     }
     //Tie
     else {
-        msg = await message.channel.send({embed: {
+        await message.channel.send({embed: {
             color: 0xffff00,
             title: `Black Jack | ${message.author.username} - DRAW`,
 	        description: `You and the dealer tied! You got your original bet back.`,
@@ -123,7 +123,6 @@ module.exports.run = async (client, message, args) => {
         }});
         money.add(bet);
 	}
-	blackjack.set("msgID", msg.id);
 	blackjack.stop();	
 }
 

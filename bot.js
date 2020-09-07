@@ -45,7 +45,7 @@ client.on("ready", () => {
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
-			if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, rps: {}}
+			if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, roulette: {}}
 		});
 	});
 
@@ -79,6 +79,8 @@ client.on('message', async (message) => {
     //Run command if it exists
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
+
+	//System files
 	Object.keys(system).forEach(f => {system[f].run(client, message, args);});
 });
 
