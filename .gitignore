@@ -2,4 +2,3 @@ node_modules
 .floo
 .flooignore
 data/auth.json
-.txt
