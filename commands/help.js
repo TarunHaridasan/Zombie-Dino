@@ -13,7 +13,6 @@ module.exports.run = async (client, message, args) => {
             text: `Help Page ${page}/${commands.helpPage.length}`
         }
     }});
-    console.log(commands.helpPage);
 }
 
 module.exports.help = {
