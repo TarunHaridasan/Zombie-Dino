@@ -29,6 +29,6 @@ module.exports.run = async (client, message, args) => {
 module.exports.help = {
     name: ["joke"],
     description: "This command fetches a random joke from the internet",
-    page: 1,
+    page: 3,
     title: "Fun Commands"
 }

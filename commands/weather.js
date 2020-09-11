@@ -74,6 +74,6 @@ module.exports.run = async (client, message, args) => {
 module.exports.help = {
     name: ["weather"],
     description: "This command can be used to check weather in any city.",
-    page: 1,
+    page: 3,
     title: "Fun Commands"
 }

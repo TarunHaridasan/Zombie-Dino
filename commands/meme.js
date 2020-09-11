@@ -10,7 +10,7 @@ module.exports.run = async (_client, message, args, _prefix) => {
 module.exports.help = {
     name: ["meme"],
     description: "This command can be used to randomly find a meme from r/memes, r/dankmemes, and r/me_irl",
-    page: 1,
+    page: 3,
     title: "Fun Commands"
 }
 
