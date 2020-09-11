@@ -12,7 +12,7 @@ function run() {
 	else {
 		console.log(`${loadStr.yellow.bold} ${files.length} system files found.`);
 		files.forEach((f, i) => {
-			let fp = `${path}\\${f}`
+			let fp = `${path}/${f}`
             let props = require(fp);
 			let loaded = `${f} loaded!`
 			console.log(`${loadStr.yellow.bold} [${i+1}] ${loaded.grey}`);
