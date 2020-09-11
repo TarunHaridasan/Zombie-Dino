@@ -7,19 +7,33 @@ function run() {
 	let files = readdirSync(path).filter(f => f.split(".").pop() === "js");
 	let loadStr = '[Commands]';
 	let commands = {};
+	let help = []
+	commands.helpPage = help;
 	//Print to console
 	if(files.length <= 0) console.log(`${loadStr.green.bold} No commands to load.\n`);
 	else {
 		console.log(`${loadStr.green.bold} ${files.length} commands detected.`);
 		files.forEach((f, i) => {
+			//Get the fp and the function
 			let fp = `${path}\\${f}`;
 			let props = require(fp);
 			let loaded = `${f.toString()} loaded!`;
 			console.log(`${loadStr.green.bold} [${i+1}] ${loaded.yellow}`);
+			
+			//Make a map of it with the name as the key
 			for (let i=0; i<props.help.name.length; i++) {
 				let name = props.help.name[i];
 				commands[name] = props;
 			}
+			
+			//Add the item to commands.help
+			let page = props.help.page-1;
+			if (!help[page]) {
+				help[page] = {};
+				help[page].name = props.help.title;
+				help[page].value = ``;
+			}
+			help[page].value += `\`${props.help.name}\`: ${props.help.description} \n`;
 		});
 		console.log(`${loadStr.green.bold} All commands have been loaded!\n`);
 	}
