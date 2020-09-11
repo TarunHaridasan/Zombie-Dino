@@ -15,7 +15,7 @@ function run() {
 		console.log(`${loadStr.green.bold} ${files.length} commands detected.`);
 		files.forEach((f, i) => {
 			//Get the fp and the function
-			let fp = `${path}\\${f}`;
+			let fp = `${path}/${f}`;
 			let props = require(fp);
 			let loaded = `${f.toString()} loaded!`;
 			console.log(`${loadStr.green.bold} [${i+1}] ${loaded.yellow}`);
