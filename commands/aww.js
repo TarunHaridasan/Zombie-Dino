@@ -16,6 +16,6 @@ module.exports.run = async (_client, message, args, _prefix) => {
 module.exports.help = {
     name: ["aww"],
     description: "Retreive a wholesome image from r/aww and r/awww",
-    page: 1,
+    page: 3,
     title: "Fun Commands"
 }

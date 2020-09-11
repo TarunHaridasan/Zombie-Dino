@@ -60,6 +60,6 @@ module.exports.run = async (_client, message, args, _prefix) => {
 module.exports.help = {
 	name: ["antonym"],
 	description: "This command will retrieve popular antonyms of a word",
-	page: 1,
+	page: 3,
 	title: "Fun Commands"
 }

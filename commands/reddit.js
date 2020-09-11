@@ -24,6 +24,6 @@ module.exports.run = async (_client, message, args, _prefix) => {
 module.exports.help = {
     name: ["reddit"],
     description: "Retreive a random image post from the specified reddit post (NSFW not allowed)",
-    page: 1,
+    page: 3,
     title: "Fun Commands"
 }
