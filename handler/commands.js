@@ -27,12 +27,14 @@ function run() {
 			}
 			
 			//Add the item to commands.help
+			//Checking if the page exists in the array; if not, create it.
 			let page = props.help.page-1;
 			if (!help[page]) {
 				help[page] = {};
 				help[page].name = props.help.title;
 				help[page].value = ``;
 			}
+			//If it already exists, just add it to the page.
 			help[page].value += `\`${props.help.name}\`: ${props.help.description} \n`;
 		});
 		console.log(`${loadStr.green.bold} All commands have been loaded!\n`);
