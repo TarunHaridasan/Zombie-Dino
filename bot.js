@@ -5,8 +5,7 @@ const colors = require('colors');
 const client = new Discord.Client();
 const util = require("util");
 
-let JSONTemplate = require("./utilities/jsonTemplate.js");
-const Money = require('./utilities/money.js');
+let JSONTemplate = require("./utilities/JSONTemplate.js");
 
 /*<--------------------Loading------------------------->*/
 global.commands = require("./handler/commands.js")();
