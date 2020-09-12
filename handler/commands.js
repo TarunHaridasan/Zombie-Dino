@@ -8,7 +8,8 @@ function run() {
 	let loadStr = '[Commands]';
 	let commands = {};
 	let help = []
-	commands.helpPage = help;
+	if(!commands.helpPage) commands.helpPage = help;
+	else help = commands.helpPage;
 	//Print to console
 	if(files.length <= 0) console.log(`${loadStr.green.bold} No commands to load.\n`);
 	else {
