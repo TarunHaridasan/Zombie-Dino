@@ -8,6 +8,9 @@ function run() {
 	let loadStr = '[Items]';
 	let items = {};
 	let shop = [];
+	let help = []
+	if(!commands.helpPage) commands.helpPage = help;
+	else help = commands.helpPage;
 	items.shop = shop;
 
 	if(files.length <= 0) {
@@ -40,6 +43,15 @@ function run() {
 			}
 			shop[page].value += `\`[${count}]\` ${props.parsed}: **${props.cost}💵**\n`;
 			count++;
+			//Add the item to commands.help
+			//Checking if the page exists in the array; if not, create it.
+			if (!help[page]) {
+				help[page] = {};
+				help[page].name = props.functions[0].help.title;
+				help[page].value = ``;
+			}
+			//If it already exists, just add it to the page.
+			for(let i = 0; i < props.functions.length; i++) help[page].value += `\`${props.functions[i].help.name}\`: ${props.functions[i].help.description} \n`;
 		});
 		console.log(`${loadStr.magenta.bold} All items have been loaded!\n`);
 	}
