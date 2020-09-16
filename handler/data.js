@@ -14,7 +14,7 @@ function run() {
         console.log(`${loadStr.red.bold} ${files.length} JSON files detected.`);
         //Load each json file
         files.forEach((f, i)=> {
-            let fp = `${path}\\${f}`
+            let fp = `${path}/${f}`
             let props = require(fp);
             let loaded = `${f.toString()} loaded!`;
             console.log(`${loadStr.red.bold} [${i+1}] ${loaded.red}`);

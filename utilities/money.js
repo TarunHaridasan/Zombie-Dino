@@ -1,4 +1,4 @@
-const JSONTemplate = require("./jsonTemplate");
+const JSONTemplate = require("./JSONTemplate.js");
 
 class Money extends JSONTemplate {
 	constructor(userID) {
