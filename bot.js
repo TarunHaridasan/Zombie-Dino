@@ -25,6 +25,7 @@ client.on("ready", () => {
 	let bank = new JSONTemplate("bank.json");
 	let inventory = new JSONTemplate("inventory.json");
 	let itemStats = new JSONTemplate("itemStats.json");
+  let minigames = new JSONTemplate("minigames.json");
 
     //For each guild
 	guilds.cache.forEach(guild => {
@@ -48,6 +49,7 @@ client.on("ready", () => {
 			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
 			if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
 			if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar: 0, sober: 0, soberSugar: 0, event: 0};
+      if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, roulette: {}}
 			Object.keys(items).forEach(file => {
 				let data = inventory.data[userID];
 				if(!(file in inventory.data[userID])) {
@@ -65,6 +67,7 @@ client.on("ready", () => {
 	bank.write();
 	inventory.write();
 	itemStats.write();
+  minigames.write();
 	//Logged in and ready to go!
 	console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -91,6 +94,7 @@ client.on('message', async (message) => {
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
 });
+
 
 
 
