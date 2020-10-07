@@ -73,6 +73,6 @@ module.exports.run = async (client, message, args) => {
 module.exports.help = {
     name: ["red"],
     description: "Bet on red in roulette",
-    page: 2,
+    page: 4,
     title: "Gambling Commands"
 };

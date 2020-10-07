@@ -50,8 +50,8 @@ module.exports.run = async (client, message, args) => {
     crash.stop();
 }
 module.exports.help = {
-    name: ["stopCrash"],
+    name: ["stopcrash"],
     description: "Play a game of crash",
-    page: 2,
-    title: "Debugging Commands"
+    page: 4,
+    title: "Gambling Commands"
 };
