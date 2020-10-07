@@ -67,7 +67,7 @@ client.on("ready", () => {
 	bank.write();
 	inventory.write();
 	itemStats.write();
-  minigames.write();
+  	minigames.write();
 	//Logged in and ready to go!
 	console.log(`Logged in as ${client.user.tag}!`);
 });
