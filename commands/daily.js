@@ -10,7 +10,8 @@ module.exports.run = async (client, message, args) => {
     //Get todau, canClaim, and tomorrow's time
     let date = new Date();
     let canClaim = new Date(reward.get('dailyMS'));
-    let expire = canClaim.setDate((canClaim.getDate()+1));
+    let canClaim2 = new Date(reward.get('dailyMS'));
+    let expire = canClaim2.setDate((canClaim2.getDate()+1));
 
     //User has already claimed their gift
     if(date.getTime() < canClaim.getTime()) {
