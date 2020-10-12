@@ -10,7 +10,8 @@ module.exports.run = async (client, message, args) => {
     //Get times
     let date = new Date();
     let canClaim = new Date(reward.get('weeklyMS'));
-    let expire = canClaim.setDate((canClaim.getDate()+7));
+    let canClaim2 = new Date(reward.get('weeklyMS'));
+    let expire = canClaim2.setDate((canClaim2.getDate()+7));
 
    //User has already claimed their gift
     if(date.getTime() < canClaim.getTime()) {
@@ -31,7 +32,7 @@ module.exports.run = async (client, message, args) => {
     money.add(claimAmount);
 
     //Increment time and streak
-    reward.incTime('weeklyMS')
+    reward.incTime('weeklyMS');
     let newStreak = reward.incStreak('weeklyStr');
 
     message.channel.send({embed: {

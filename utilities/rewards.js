@@ -20,7 +20,7 @@ class Rewards extends JSONTemplate {
     //Increment time
     incTime(type) {
         let curTime = new Date();
-        let days = (type=="dailyMS") ? 1 : 7
+        let days = (type=="dailyMS") ? 1 : 7;
         curTime = curTime.setDate(curTime.getDate() + days);
         this.set(type, curTime);
         return curTime;
