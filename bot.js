@@ -25,7 +25,7 @@ client.on("ready", () => {
 	let bank = new JSONTemplate("bank.json");
 	let inventory = new JSONTemplate("inventory.json");
 	let itemStats = new JSONTemplate("itemStats.json");
-  let minigames = new JSONTemplate("minigames.json");
+  	let minigames = new JSONTemplate("minigames.json");
 
     //For each guild
 	guilds.cache.forEach(guild => {

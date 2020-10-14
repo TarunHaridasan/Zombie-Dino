@@ -17,6 +17,7 @@ module.exports.run = async (client, message, args) => {
     };
     //Getting and checking if the user entered the proper arguments
     let pay =+ args[0];
+    if(!pay) pay = bal.get();
     if(!pay || pay < 1 || pay > bal.get() || isNaN(+pay)) {
         message.channel.send({embed: {
             color: 0xff0000,
