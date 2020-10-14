@@ -5,7 +5,7 @@ module.exports.run = async (client, message, args) => {
     let bank = new Bank(userID);
     let bankBal = new Money('bank');
     let bal = new Money(userID);
-    const {loan} = bank.getData();
+    let {loan} = bank.getData();
     //Check if the user has an active loan.
     const {debters} = bank.getBank();
     if(!debters.includes(userID)) {
@@ -33,7 +33,8 @@ module.exports.run = async (client, message, args) => {
     //Removing from loan amount.
     bank.pay(pay);
     //Checking if loan was fully paid.
-    if(loan < 1) {
+    const loan2 = bank.getData().loan;
+    if(loan2 < 1) {
         //If so, then close the person's loan.
         bank.unLoan();
         message.channel.send({embed: {
