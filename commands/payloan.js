@@ -5,6 +5,7 @@ module.exports.run = async (client, message, args) => {
     let bank = new Bank(userID);
     let bankBal = new Money('bank');
     let bal = new Money(userID);
+    const {loan} = bank.getData();
     //Check if the user has an active loan.
     const {debters} = bank.getBank();
     if(!debters.includes(userID)) {
@@ -17,7 +18,7 @@ module.exports.run = async (client, message, args) => {
     };
     //Getting and checking if the user entered the proper arguments
     let pay =+ args[0];
-    if(!pay) pay = bal.get();
+    if(!pay) pay =+ loan;
     if(!pay || pay < 1 || pay > bal.get() || isNaN(+pay)) {
         message.channel.send({embed: {
             color: 0xff0000,
@@ -25,13 +26,13 @@ module.exports.run = async (client, message, args) => {
         }});
         return;
     };
+    if(pay > loan) pay = loan;
     //Transferring money
     bankBal.add(pay);
     bal.min(pay);
     //Removing from loan amount.
     bank.pay(pay);
     //Checking if loan was fully paid.
-    const {loan} = bank.getData();
     if(loan < 1) {
         //If so, then close the person's loan.
         bank.unLoan();
