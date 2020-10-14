@@ -51,10 +51,11 @@ module.exports.run = async (client, message, args) => {
     //Process transaction
     userMoney.add(stealAmount);
     targetMoney.min(stealAmount);
-    message.channel.send({embed: {
+    let msg2 = await message.channel.send({embed: {
         color: 0x00FF00,
         description: `<@${userID}> You have stolen ${stealAmount.toLocaleString()}💵 from <@${stealTarget.id}>`
     }}).then(message => message.delete(1000));
+    msg2.delete();
     message.delete();
 }
 module.exports.help = {
