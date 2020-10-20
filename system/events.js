@@ -14,14 +14,14 @@ module.exports.run = async (client, message, args) => {
     if(ran > chance) {
         message.channel.send({embed: {
             color: 0x00ff00,
-            description: `<@${message.member.user.id}> On your way to the groccery store, you accidentally crashed your car into a criminal with a bounty of **${amount}💵**! The money was deposited into your account.`
+            description: `<@${message.member.user.id}> On your way to the groccery store, you accidentally crashed your car into a criminal with a bounty of **${amount.toLocaleString()}💵**! The money was deposited into your account.`
         }});
         userBal.add(amount);
         return;
     }
     message.channel.send({embed: {
         color: 0xff0000,
-        description: `<@${message.member.user.id}> On your way to the movie theatre, you were impaired and ran into a pole... Hospital fees costed you **${amount}💵**.`
+        description: `<@${message.member.user.id}> On your way to the movie theatre, you were impaired and ran into a pole... Hospital fees costed you **${amount.toLocaleString()}💵**.`
     }});
     userBal.min(amount);
     //Resetting event timer.
