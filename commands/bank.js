@@ -1,7 +1,14 @@
 module.exports.run = async (client, message, args) => {
+    //ID's
+    let userID = message.author.id;
+    //Helper classes
     let Money = require("../utilities/money.js");
+    let Bank = require("../utilities/bank.js");
+    //Variables
     let bank = new Money('bank');
     let vault = bank.get().toLocaleString();
+    let balance = new Bank(userID).uData.balance;
+    console.log(balance);
 
     message.channel.send({embed: {
         color: 3447003,
@@ -30,6 +37,10 @@ module.exports.run = async (client, message, args) => {
             {
                 name: "Vault",
                 value: `Vault Amount: ${vault}💵`
+            },
+            {
+                name: 'Your Account',
+                value: `Balance: ${balance.toLocaleString()}💵`
             }
         ],
         image: {

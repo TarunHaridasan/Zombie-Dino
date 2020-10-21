@@ -57,5 +57,13 @@ class Bank extends JSONTemplate {
         this.write();
         return true;
     }
+    deposit(amount) {
+        this.uData.balance+=amount;
+        this.write();
+    }
+    withdraw(amount) {
+        this.uData.balance-=amount;
+        this.write();
+    }
 }
 module.exports = Bank;

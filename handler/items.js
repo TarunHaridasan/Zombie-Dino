@@ -1,4 +1,4 @@
-function run() {
+function run(log) {
 	//Requires
 	const readdirSync = require('fs').readdirSync;
 	const resolve = require('path').resolve;
@@ -17,17 +17,17 @@ function run() {
 	items.shopArr = [];
 
 	if(files.length <= 0) {
-		console.log(`${loadStr.magenta.bold} No items to load.\n`);
+		if(log) console.log(`${loadStr.magenta.bold} No items to load.\n`);
 	}
 	else {
 		let count = 1;
-		console.log(`${loadStr.magenta.bold} ${files.length} items detected.`);
+		if(log) console.log(`${loadStr.magenta.bold} ${files.length} items detected.`);
 		files.forEach((f, i) => {
             //Getting the path and requiring the function.
 			let fp = `${path}/${f}`;
 			let props = require(fp);
 			let loaded = `${f.toString()} loaded!`;
-			console.log(`${loadStr.magenta.bold} [${i+1}] ${loaded.yellow}`);
+			if(log) console.log(`${loadStr.magenta.bold} [${i+1}] ${loaded.yellow}`);
 
             //Making a map with the name of the item and its properties (ie. cost)
 			items[props.name] = props;
@@ -58,7 +58,7 @@ function run() {
 			//If it already exists, just add it to the page.
 			for(let i = 0; i < props.functions.length; i++) help[page].value += `\`${props.functions[i].help.name}\`: ${props.functions[i].help.description} \n`;
 		});
-		console.log(`${loadStr.magenta.bold} All items have been loaded!\n`);
+		if(log) console.log(`${loadStr.magenta.bold} All items have been loaded!\n`);
 	}
 	return [items, weapons];
 }

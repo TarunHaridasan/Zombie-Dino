@@ -10,7 +10,7 @@ let JSONTemplate = require("./utilities/JSONTemplate.js");
 /*<--------------------Loading------------------------->*/
 global.commands = require("./handler/commands.js")();
 global.system = require("./handler/system.js")();
-global.items = require("./handler/items.js")()[0];
+global.items = require("./handler/items.js")(true)[0];
 global.weapons = require("./handler/items.js")()[1];
 global.data = require("./handler/data.js")();
 
@@ -46,7 +46,7 @@ client.on("ready", () => {
 			//Initialize JSON data for each member.
 			if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
 			if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
-			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
+			if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0, balance: 0}; //User bank and loans
 			if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
 			if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar: 0, sober: 0, soberSugar: 0, event: 0, weapon: null, pistolCool: 0};
       		if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, roulette: {}}
