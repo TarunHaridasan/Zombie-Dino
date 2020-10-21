@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args) => {
     //Sending message
     message.channel.send({embed: {
         color: 0x00ff00,
-        description: `<@${userID}> You successfully deposited **${amount}**💵 into the bank.`
+        description: `<@${userID}> You successfully deposited **${amount.toLocaleString()}**💵 into the bank.`
     }});
 };
 

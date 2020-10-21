@@ -9,7 +9,7 @@ module.exports.run = async (client, message, args) => {
     let bal = new Money(userID);
     //Getting amount.
     let amount =+ args[0];
-    if(!amount || isNaN(+amount) || amount < 1 || amount > bal.get()) {
+    if(!amount || isNaN(+amount) || amount < 1 || amount > bank.uData.balance) {
         message.channel.send({embed: {
             color: 0xff0000,
             description: `<@${userID}> Please enter a valid amount.`
@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args) => {
     //Sending message
     message.channel.send({embed: {
         color: 0x00ff00,
-        description: `<@${userID}> You successfully withdrew **${amount.toLocaleString()}**💵 into the bank.`
+        description: `<@${userID}> You successfully withdrew **${amount.toLocaleString()}**💵 from the bank.`
     }});
 };
 
