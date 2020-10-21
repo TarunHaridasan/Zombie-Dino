@@ -49,6 +49,18 @@ class ItemStats extends JSONTemplate {
     getQuantity(stat) {
         return this.userData[stat];
     }
+    switchWep(weapon) {
+        this.userData.weapon = weapon;
+        this.write();
+    }
+    initCool(weapon) {
+        let now = Date.now();
+        if(weapon == 'pistol') {
+            now += (90*60000);
+            this.userData.pistolCool = now;
+        }
+        this.write();
+    }
 }
 
 module.exports = ItemStats;

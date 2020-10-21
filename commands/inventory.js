@@ -1,14 +1,15 @@
 module.exports.run = async (client, message, args) => {
     let userID = message.author.id;
     let Inventory = require('../utilities/inventory.js');
-    let inventory = new Inventory(userID);   //user before  
+    let inventory = new Inventory(userID); 
     inventory = inventory.userData;
 
     //Collect all inventory items
     let value = ``;
-    for(item in inventory) {
-        let count = inventory[item];
-        value += `${items[item].parsed}: **${count}**\n`;
+    
+    for(i in inventory) {
+        let count = inventory[i];
+        value += `${items[i].parsed}: **${count}**\n`;
     };
 
     //Collect the fields

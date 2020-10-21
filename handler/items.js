@@ -7,11 +7,14 @@ function run() {
 	let files = readdirSync(path).filter(f => f.split(".").pop() === "js");
 	let loadStr = '[Items]';
 	let items = {};
+	let weapons = {};
 	let shop = [];
-	let help = []
+	let help = [];
+	//Items
 	if(!commands.helpPage) commands.helpPage = help;
 	else help = commands.helpPage;
 	items.shop = shop;
+	items.shopArr = [];
 
 	if(files.length <= 0) {
 		console.log(`${loadStr.magenta.bold} No items to load.\n`);
@@ -28,6 +31,7 @@ function run() {
 
             //Making a map with the name of the item and its properties (ie. cost)
 			items[props.name] = props;
+			if(props.weapon) weapons[props.name] = props._functions[0].run;
 
 			//Register commands associated with the item
 			props.functions.forEach(func => {
@@ -41,7 +45,8 @@ function run() {
 				shop[page].name = props.title;
 				shop[page].value = ``;
 			}
-			shop[page].value += `\`[${count}]\` ${props.parsed}: **${props.cost}💵**\n`;
+			shop[page].value += `\`[${count}]\` ${props.parsed}: **${props.cost.toLocaleString()}💵**\n`;
+			items.shopArr.push(props.name);
 			count++;
 			//Add the item to commands.help
 			//Checking if the page exists in the array; if not, create it.
@@ -55,7 +60,7 @@ function run() {
 		});
 		console.log(`${loadStr.magenta.bold} All items have been loaded!\n`);
 	}
-	return items;
+	return [items, weapons];
 }
 
 module.exports = run;

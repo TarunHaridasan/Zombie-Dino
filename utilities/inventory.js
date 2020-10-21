@@ -21,8 +21,15 @@ class Inventory extends JSONTemplate {
 
     //Add quantity
     addQuantity(item, quantity) {
+        //Checking for weapon.
+        if(items[item].weapon) {
+            this.userData[item] = '✅';
+            this.write();
+            return true;
+        }
         this.userData[item]+=quantity;
-        this.write()
+        this.write();
+        return true;
     }
 
     //Subtract quantity
