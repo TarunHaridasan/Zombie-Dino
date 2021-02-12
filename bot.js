@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*<--------------------Imports------------------------->*/
 const Discord = require('discord.js');
 const opus = require('opusscript');
