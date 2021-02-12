@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*<--------------------Imports------------------------->*/
 const Discord = require('discord.js');
 const opus = require('opusscript');
@@ -101,3 +102,12 @@ client.on('message', async (message) => {
 
 
 
+=======
+
+
+
+
+
+
+
+>>>>>>> f4d9c2e14808ce8f20b07b85f2e5256b8775b4e3
