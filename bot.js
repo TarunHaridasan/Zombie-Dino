@@ -95,19 +95,3 @@ client.on('message', async (message) => {
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
 });
-
-
-
-
-
-
-
-=======
-
-
-
-
-
-
-
->>>>>>> f4d9c2e14808ce8f20b07b85f2e5256b8775b4e3
