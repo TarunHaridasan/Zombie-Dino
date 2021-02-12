@@ -59,6 +59,10 @@ class ItemStats extends JSONTemplate {
             now += (90*60000);
             this.userData.pistolCool = now;
         }
+        else if(weapon == 'shotgun') {
+            now += (120*60000);
+            this.userData.shotgunCool = now;
+        }
         this.write();
     }
 }

@@ -56,7 +56,7 @@ module.exports.run = async (client, message, args) => {
     //Make the message
     message.channel.send({embed: {
         color: 0x00FF00,
-        description: `You have bought \`${quantity}x\` \`${items[item].parsed}\` for **${totalCost.toLocaleString()}💵**`
+        description: `You have bought \`${quantity}x\` **${items[item].parsed}** for **${totalCost.toLocaleString()}💵**`
     }});
     return;
 }

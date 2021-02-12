@@ -13,9 +13,9 @@ async function shoot(_client, message, _args, target) {
     let targetBal = new Money(target.id);
     //Getting and checking time.
     let now = Date.now();
-    if(now < stats.getQuantity('pistolCool')) {
+    if(now < stats.getQuantity('shotgunCool')) {
         //Finding difference.
-        let diff = stats.getQuantity('pistolCool')-now;
+        let diff = stats.getQuantity('shotgunCool')-now;
         let mins = Math.round(diff/60000);
         message.channel.send({embed: {
             color: 0xff0000,
@@ -24,7 +24,7 @@ async function shoot(_client, message, _args, target) {
         return;
     };
     //Checking for bullets.
-    if(inventory.getQuantity('pistolBullet') < 1) {
+    if(inventory.getQuantity('shotgunShell') < 1) {
         message.channel.send({embed: {
             color: 0xff0000,
             description: `<@${userID}> You have no ammo!`
@@ -32,14 +32,14 @@ async function shoot(_client, message, _args, target) {
         return;
     };
     //Getting percentage of money.
-    let percent = (Math.round(1+Math.random()*4))/100;
+    let percent = (Math.round(10+Math.random()*5))/100;
     let amount = Math.round(targetBal.get()*percent);
     targetBal.min(amount);
     userBal.add(amount);
     //Subtracting one bullet.
-    inventory.minQuantity('pistolBullet', 1);
+    inventory.minQuantity('shotgunShell', 1);
     //Initiating cooldown.
-    stats.initCool('pistol');
+    stats.initCool('shotgun');
     //Sending the message.
     message.channel.send({embed: {
         description: `<@${userID}> has shot <@${target.id}> and has stolen from them **${amount.toLocaleString()}**💵!`
@@ -47,11 +47,11 @@ async function shoot(_client, message, _args, target) {
 }
 
 //Item properties
-module.exports.name = "pistol";
-module.exports.parsed = "Pistol <:pistol:768360423174176798>"
+module.exports.name = "shotgun";
+module.exports.parsed = "Shotgun <:shotgun:768360171235442708>"
 module.exports.weapon = true;
-module.exports.ammo = 'pistolBullet';
-module.exports.cost = 500000;
+module.exports.ammo = 'shotgunShell';
+module.exports.cost = 1250000;
 module.exports.default = '🚫';
 module.exports.page = 2;
 module.exports.title = "Weapons"
