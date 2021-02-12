@@ -94,6 +94,9 @@ client.on('message', async (message) => {
     //Run command /item if it exists
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
+<<<<<<< HEAD
+});
+=======
 });
 
 //On server join.
@@ -177,3 +180,4 @@ client.on('guildMemberAdd', async (member) => {
 
 
 
+>>>>>>> 1d4a608753c26bd2f58c1465ea5c85b8ee73db9c
