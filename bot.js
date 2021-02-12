@@ -25,7 +25,8 @@ client.on("ready", () => {
 	let bank = new JSONTemplate("bank.json");
 	let inventory = new JSONTemplate("inventory.json");
 	let itemStats = new JSONTemplate("itemStats.json");
-  	let minigames = new JSONTemplate("minigames.json");
+	let minigames = new JSONTemplate("minigames.json");
+	let levels = new JSONTemplate("levels.json");
 
     //For each guild
 	guilds.cache.forEach(guild => {
@@ -50,7 +51,8 @@ client.on("ready", () => {
 			if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
 			if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar: 0, sober: 0, soberSugar: 0, event: 0, weapon: null, pistolCool: 0, shotgunCool: 0};
 			if(!itemStats.data[userID].shotgunCool)itemStats.data[userID].shotgunCool = 0;
-      		if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, roulette: {}}
+			if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, roulette: {}}
+			if (!levels.data[userID]) levels.data[userID] = {level: 1, xp: 0, xpr: 10, prestige: 0, } //User levels
 			Object.keys(items).forEach(file => {
 				let data = inventory.data[userID];
 				if(!(file in inventory.data[userID]) && file != 'shop' && file != 'shopArr') {
@@ -68,7 +70,8 @@ client.on("ready", () => {
 	bank.write();
 	inventory.write();
 	itemStats.write();
-  	minigames.write();
+	minigames.write();
+	levels.write();
 	//Logged in and ready to go!
 	console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -94,9 +97,6 @@ client.on('message', async (message) => {
     //Run command /item if it exists
 	let cmd = commands[command.slice(client.prefix.length)];
 	if (cmd) cmd.run(client, message, args);
-<<<<<<< HEAD
-});
-=======
 });
 
 //On server join.
@@ -108,7 +108,8 @@ client.on('guildCreate', async (guild) => {
 	let bank = new JSONTemplate("bank.json");
 	let inventory = new JSONTemplate("inventory.json");
 	let itemStats = new JSONTemplate("itemStats.json");
-  	let minigames = new JSONTemplate("minigames.json");
+	let minigames = new JSONTemplate("minigames.json");
+	let levels = new JSONTemplate("levels.json");
   	//Getting members
 	let members = guild.members;
 	let serverID = guild.id;
@@ -130,7 +131,8 @@ client.on('guildCreate', async (guild) => {
 		if (!bank.data[userID]) bank.data[userID] = {loan: 0, loanDate: 0, intr: 0, severe: 0, incr: 0}; //User bank and loans
 		if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
 		if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar: 0, sober: 0, soberSugar: 0, event: 0, weapon: null};
-  		if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, roulette: {}}
+		if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, roulette: {}}
+		if (!levels.data[userID]) levels.data[userID] = {level: 1, xp: 0, xpr: 10, prestige: 0, } //User levels
 		Object.keys(items).forEach(file => {
 			let data = inventory.data[userID];
 			if(!(file in inventory.data[userID]) && file != 'shop') {
@@ -146,7 +148,8 @@ client.on('guildCreate', async (guild) => {
 	bank.write();
 	inventory.write();
 	itemStats.write();
-  	minigames.write();
+	minigames.write();
+	levels.write();
 });
 
 //On new member.
@@ -159,6 +162,7 @@ client.on('guildMemberAdd', async (member) => {
 	let inventory = new JSONTemplate("inventory.json");
 	let itemStats = new JSONTemplate("itemStats.json");
 	let minigames = new JSONTemplate("minigames.json");
+	let levels = new JSONTemplate("levels.json");
 	//Initialize JSON data for each member.
 	if (!money.data[userID]) money.data[userID] = {money: 0}; //User money
 	if (!rewards.data[userID]) rewards.data[userID] = {dailyMS: 0, weeklyMS: 0, dailyStr: 0, weeklyStr: 0}; //User rewards (daily, weekly, etc)
@@ -166,6 +170,7 @@ client.on('guildMemberAdd', async (member) => {
 	if (!inventory.data[userID]) inventory.data[userID] = {}; //User inventories.
 	if (!itemStats.data[userID]) itemStats.data[userID] = {drunk: 0, sugar: 0, sober: 0, soberSugar: 0, event: 0, weapon: null};
 	if (!minigames.data[userID]) minigames.data[userID] = {crash: {}, blackjack: {}, roulette: {}}
+	if (!levels.data[userID]) levels.data[userID] = {level: 1, xp: 0, xpr: 10, prestige: 0, } //User levels
 	Object.keys(items).forEach(file => {
 		let data = inventory.data[userID];
 		if(!(file in inventory.data[userID]) && file != 'shop') {
@@ -173,6 +178,15 @@ client.on('guildMemberAdd', async (member) => {
 			inventory.data[userID] = data;
 		};
 	});
+	//Write all files
+	server.write();
+	money.write();
+	rewards.write();
+	bank.write();
+	inventory.write();
+	itemStats.write();
+	minigames.write();
+	levels.write();
 });
 
 
@@ -180,4 +194,3 @@ client.on('guildMemberAdd', async (member) => {
 
 
 
->>>>>>> 1d4a608753c26bd2f58c1465ea5c85b8ee73db9c
