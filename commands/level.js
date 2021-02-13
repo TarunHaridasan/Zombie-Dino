@@ -100,7 +100,7 @@ module.exports.run = async (client, message, args) => {
     };
     let element = draw(934, 282, `${userObj.username}#${userObj.discriminator}`, user.userData.xp, user.userData.xpr, user.get());
     element = element.toBuffer('image/png');
-    fs.writeFileSync('./images/image.png', element);
+    fs.writeFileSync('./images/', element);
     message.channel.send({files: ["./images/image.png"]});
 }
 
