@@ -1,12 +1,26 @@
 module.exports.run = async (client, message, args) => {
     let userID = message.author.id;
     let Level = require('../utilities/levels.js');
-    const { createCanvas } = require('canvas');
-    var fs = require('fs');
+    const { createCanvas, loadImage } = require('canvas');
+    const makeDir = require('make-dir');
+    const fs = require('fs');
+    const request = require('request');
+    const webp = require('webp-converter');
+    webp.grant_permission();
     //Getting the targetted user or the author of the command.
     let target = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
     let user = target ? new Level(target.id):new Level(userID);
     let userObj = target ? target:message.author;
+    async function getDir(userObj) {
+        let path;
+        if(!fs.existsSync(`./images/${userObj.username}${userObj.discriminator}`)) {
+            path = await makeDir(`./images/${userObj.username.trim()}${userObj.discriminator.trim()}`);
+        }
+        else {
+            path = `./images/${userObj.username}${userObj.discriminator}`;
+        };
+        return path;
+    };
     // Function to make image.
     function roundedRect(x, y, width, height, radius, context) {
         context.save();
@@ -24,7 +38,7 @@ module.exports.run = async (client, message, args) => {
         // Restore the state of the canvas to as it was before the save
         context.restore();
     };
-    function draw(width, height, username, xp, xpr, level) {
+    async function draw(width, height, username, xp, xpr, level, pfp) {
         let user = username.split("#");
         user[0] = user[0].substr(0, 15);
         // Canvas and context.
@@ -53,9 +67,17 @@ module.exports.run = async (client, message, args) => {
         context.moveTo(100,50);
         context.arcTo(200,50,200,200,25);
         context.stroke();
+        // Profile picture.
+        context.save();
+        context.beginPath();
+        context.arc(140, 140, 90, 0, Math.PI * 2, false);
+        context.stroke();
+        context.clip();
+        context.drawImage(pfp, 50, 45, 190, 190);
+        context.restore();
         // Empty bar.
-        let starting2 = [80, 180];
-        let barDims = [800, 30];
+        let starting2 = [250, 180];
+        let barDims = [630, 30];
         context.beginPath();
         context.fillStyle = "#484B4E";
         roundedRect(starting2[0], starting2[1], barDims[0], barDims[1], 15, context);
@@ -98,10 +120,21 @@ module.exports.run = async (client, message, args) => {
         context.fillText(`LEVEL `, ending[0]-(context.measureText(level).width+15), starting2[1]-110);
         return element;
     };
-    let element = draw(934, 282, `${userObj.username}#${userObj.discriminator}`, user.userData.xp, user.userData.xpr, user.get());
-    element = element.toBuffer('image/png');
-    fs.writeFileSync('./images/image.png', element);
-    message.channel.send({files: ["./images/image.png"]});
+    // To download from URL
+    async function download(url, filename, callback) {
+        request.head(url, async function(err, res, body){
+            request(url).pipe(fs.createWriteStream(filename)).on('close', callback);
+        });
+    };
+    let path = await getDir(userObj);
+    download(userObj.avatarURL(), `${path}/avatar.webp`, async() => {
+        await webp.dwebp(`${path}/avatar.webp`,`${path}/avatar.png`,"-o");
+        let pfpImage = await loadImage(`${path}/avatar.png`);
+        let element = await draw(934, 282, `${userObj.username}#${userObj.discriminator}`, user.userData.xp, user.userData.xpr, user.get(), pfpImage);
+        element = element.toBuffer('image/png');
+        fs.writeFileSync(`${path}/level.png`, element);
+        message.channel.send({files: [`${path}/level.png`]});
+    });
 }
 
 module.exports.help = {
